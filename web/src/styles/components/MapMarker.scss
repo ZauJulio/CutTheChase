@@ -1,0 +1,29 @@
+svg {
+  position: relative !important;
+}
+.popup-container {
+  display: relative;
+  width: 100%;
+  font-size: 1.5rem;
+
+  .top-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .top-icons {
+    display: flex;
+    flex-direction: row;
+  }
+  .text-description {
+  }
+  .visual-elements {
+    img {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+
+      display: block;
+      position: relative !important;
+    }
+  }
+}

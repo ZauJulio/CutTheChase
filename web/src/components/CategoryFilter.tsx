@@ -12,11 +12,8 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import useStyles from "../styles/components/CategoryFilter";
+import { Category } from "../services/api";
 
-export interface Category {
-  name: string;
-  selected: boolean;
-}
 
 interface PropsCategoryFilter {
   items: Category[];

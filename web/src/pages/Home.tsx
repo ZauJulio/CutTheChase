@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
+import { Typography, Box } from "@material-ui/core";
 
 import Aside from "../components/Aside";
 import SearchBar from "../components/SearchBar";
-import CategoryFilter, { Category } from "../components/CategoryFilter";
-import { Typography, Box } from "@material-ui/core";
+import CategoryFilter from "../components/CategoryFilter";
+import MapMarker from "../components/MapMarker";
+import { getEvents, getCategorys } from "../services/api";
+import { Event, Category } from "../services/api";
+
 import "../styles/pages/Home.scss";
 
 function EventsMap() {
-  function handleChange(e: any) {
+  const [categorys, setCategorys] = useState<Category[]>(getCategorys());
+  const [searchArgs, setSearchArgs] = useState<string[]>([]);
+
+  function onCategoryChange(e: any) {
+    setCategorys(e);
     console.log(e);
   }
 
-  var categorys: Category[] = [
-    { name: "Hello", selected: false },
-    { name: "World", selected: false },
-    { name: "test", selected: false },
-    { name: "temp", selected: false },
-  ];
+  function onSearchChange(e: any) {
+    setSearchArgs(e);
+    console.log(e);
+  }
+
+  function getCategorysSelected() {
+    return categorys.filter((category) => category.selected).map((o) => o.name);
+  }
 
   return (
     <div id="page-map">
@@ -28,9 +38,11 @@ function EventsMap() {
           center={[-6.4625567, -37.0962424]}
           zoom={14}
         >
-          <TileLayer
-            url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-          />
+          <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}/>
+          {getEvents(searchArgs, getCategorysSelected()).map((event) => {
+            return <MapMarker isLoggedIn={true} event={event} />;
+          })}
+          ;
           <ZoomControl position="bottomright" />
         </MapContainer>
       </div>
@@ -47,8 +59,8 @@ function EventsMap() {
           top="2em"
           left="6em"
         >
-          <SearchBar onChange={handleChange} />
-          <CategoryFilter items={categorys} onChange={handleChange} />
+          <SearchBar onChange={onSearchChange} />
+          <CategoryFilter items={categorys} onChange={onCategoryChange} />
         </Box>
       </Typography>
     </div>
