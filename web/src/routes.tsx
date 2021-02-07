@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import EventsMap from "./pages/Home";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-import Favorites from "./pages/Landing";
+import Favorites from "./pages/Favorites";
 import Rating from "./pages/Rating";
 import Users from "./pages/Users";
 import Events from "./pages/Events";
