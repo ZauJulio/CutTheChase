@@ -49,10 +49,15 @@ function Appraiser(onChange: any) {
   );
 }
 
-export function Evaluation(rate: any) {
+type EvaluationProps = {
+  className: string
+  rate: number;
+}
+
+export function Evaluation(props: EvaluationProps) {
   return (
     <div>
-      <Rating name="read-only" value={rate} readOnly />
+      <Rating className={props.className} name="read-only" value={props.rate} precision={0.5} readOnly />
     </div>
   );
 }

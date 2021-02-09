@@ -7,7 +7,7 @@ import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
 import MapMarker from "../components/MapMarker";
 import { getEvents, getCategorys } from "../services/api";
-import { Event, Category } from "../services/api";
+import { Category } from "../services/api";
 
 import "../styles/pages/Home.scss";
 
@@ -38,7 +38,9 @@ function EventsMap() {
           center={[-6.4625567, -37.0962424]}
           zoom={14}
         >
-          <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}/>
+          <TileLayer
+            url={`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+          />
           {getEvents(searchArgs, getCategorysSelected()).map((event) => {
             return <MapMarker isLoggedIn={true} event={event} />;
           })}

@@ -38,9 +38,9 @@ var events: Event[] = [
     locality: "Ilha de Santana",
     description:
       "A Festa de Santana trata-se da festa da padroeira da cidade de Caicó, no interior do estado brasileiro do Rio Grande do Norte.",
-    site: "https://caico.rn.gov.br/ @festadesantanacaicooficial",
+    site: "https://caico.rn.gov.br/",
     favorite: true,
-    rating: 4.8,
+    rating: 4.5,
     assessments: ["Legal", "show"],
     photos: [
       { id: "1", url: "./images/1.jpg"},
