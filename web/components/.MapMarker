@@ -6,7 +6,7 @@ import iconMarker from "../utils/MapMarkerIcon";
 import { Event } from "../services/interfaces";
 import { Evaluation } from "./Appraiser";
 import { getFormatedData } from "../utils/DateTools";
-import { getMiddleImage } from "../utils/ImageTools";
+import { getMiddleImage } from "../utils/.ImageTools";
 import { FaCar } from "react-icons/fa";
 
 import styles from "../styles/components/MapMarker.module.scss";
