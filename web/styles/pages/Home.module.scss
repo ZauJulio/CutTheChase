@@ -1,0 +1,19 @@
+.eventsContainer {
+  display: block;
+  .header-bars {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-left: 1em !important;
+  }
+
+  .topBarsContainer {
+    z-index: 1000;
+    position: absolute;
+
+    display: flex;
+
+    margin-left: 7rem;
+    margin-top: 2rem;
+  }
+}

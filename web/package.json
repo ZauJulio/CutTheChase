@@ -1,58 +1,41 @@
 {
-  "name": "web",
+  "name": "cut-the-chase",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/leaflet": "^1.5.21",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "dotenv": "^8.2.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.20",
+    "@types/js-cookie": "^2.2.6",
+    "@types/leaflet": "^1.5.23",
+    "@types/node": "^14.14.33",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "js-cookie": "^2.2.1",
     "leaflet": "^1.7.1",
+    "next": "10.0.8",
+    "next-images": "^1.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^4.1.0",
+    "react-icons": "^4.2.0",
     "react-leaflet": "^3.1.0",
-    "react-pro-sidebar": "^0.5.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "react-search-field": "^1.2.0",
-    "sass": "^1.32.6",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-scripts": "^4.0.3",
+    "sass": "^1.32.8",
+    "svg-url-loader": "^7.1.1",
+    "typescript": "^4.2.3",
+    "web-vitals": "^1.1.0"
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "dotenv": "^8.2.0"
   }
 }
