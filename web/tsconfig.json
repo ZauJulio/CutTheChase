@@ -25,7 +25,7 @@
     "pages/_document.tsx",
     "pages/index.tsx",
     "pages/_app.tsx"
-, "tsconfig.json"  ],
+, "tsconfig.json", "components/.MapMarker"  ],
   "exclude": [
     "node_modules"
   ]
