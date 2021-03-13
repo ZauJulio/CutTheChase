@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 
-import MapMarker from "./MapMarker";
+// import MapMarker from "./MapMarker";
 import iconMarker from "../utils/MapMarkerIcon";
 import { EventsContext } from "../contexts/EventsContext";
 import styles from "../styles/components/Map.module.scss";
