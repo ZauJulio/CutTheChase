@@ -28,7 +28,6 @@ var _favorite: Favorite[] = [
 
 var preferences: Preferences = {
   id: 1,
-  user: 1,
   favcategories: [
     {
       id: 1,

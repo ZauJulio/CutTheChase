@@ -7,12 +7,12 @@ import CategoryFilter from "../components/CategoryFilter";
 
 import styles from "../styles/pages/Home.module.scss";
 import { GetServerSideProps } from "next";
-import { SelectedCategory } from "../services/interfaces";
+import { SelectableCategory } from "../services/interfaces";
 import { EventsProvider, Location } from "../contexts/EventsContext";
 
 interface HomeProps {
   location: Location;
-  selectedCategories: SelectedCategory[];
+  selectedCategories: SelectableCategory[];
 }
 
 export default function Index(props: HomeProps) {
