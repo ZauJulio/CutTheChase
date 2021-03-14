@@ -35,7 +35,6 @@ export interface Role {
 
 export interface Preferences {
   id: number;
-  user: number;
   favcategories: Category[];
 }
 
@@ -70,7 +69,7 @@ export interface Event {
   category: Category[];
 }
 
-export interface SelectedCategory {
+export interface SelectableCategory {
   id: number;
   name: string;
   selected: boolean;

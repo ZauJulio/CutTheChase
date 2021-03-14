@@ -9,7 +9,7 @@ import {
   User,
   Repeat,
   Event,
-  SelectedCategory,
+  SelectableCategory,
 } from "./interfaces";
 
 var _adress: Adress = {
@@ -92,7 +92,7 @@ var events: Event[] = [
   },
 ];
 
-var categorys: Category[] = [
+var categories: Category[] = [
   { id: 1, name: "Música" },
   { id: 2, name: "Artes Visuais" },
   { id: 3, name: "Festival" },
@@ -101,23 +101,27 @@ var categorys: Category[] = [
   { id: 6, name: "Infantil" },
 ];
 
-export function getSelectedCategories(categories?: Category[]) : SelectedCategory[] {
-  if (categories === undefined) {
-    categories = getCategorys();
-  }
-
-  let selectedCategories:SelectedCategory[] = [];
-
-  for (var i in categories) {
-    selectedCategories.push(Object.assign(categories[i], { selected: false }));
-  }
-
-  return selectedCategories;
+export function getSelectableCategories() {
+  return getCategories().map((category) => {
+    return Object.assign(category, { selected: false });
+  });
 }
 
-export function getCategorys() {
-  return categorys;
+export function getCategories() {
+  return categories;
 }
-export function getEvents(searchArgs: string[], categorys: string[]) {
+
+export function getEvents(
+  searchArgs: string[],
+  categories: string[],
+  location: { lat: number; long: number }
+) {
   return events;
+}
+
+export function login(email: string, password?: string) {
+  return {
+    status: 200,
+    user: user,
+  };
 }

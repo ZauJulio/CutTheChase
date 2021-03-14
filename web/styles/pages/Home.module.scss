@@ -3,8 +3,7 @@
   .header-bars {
     display: flex;
     justify-content: flex-end;
-
-    margin-left: 1em !important;
+    
   }
 
   .topBarsContainer {
@@ -13,7 +12,8 @@
 
     display: flex;
 
-    margin-left: 7rem;
+    right: 1rem;
     margin-top: 2rem;
+    gap: 2rem;
   }
 }

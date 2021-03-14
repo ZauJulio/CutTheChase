@@ -17,21 +17,6 @@ interface HomeProps {
 
 export default function Index(props: HomeProps) {
   const Map = dynamic(() => import("../components/Map"), { ssr: false });
-  const [searchArgs, setSearchArgs] = useState<string[]>([]);
-
-  function onCategoryChange(e: any) {
-    // setCategorys(e);
-    console.log(e);
-  }
-
-  function onSearchChange(e: any) {
-    setSearchArgs(e);
-    console.log(e);
-  }
-
-  function getCategorysSelected() {
-    // return categorys.filter((category) => category.selected).map((o) => o.name);
-  }
 
   return (
     <div className={styles.eventsContainer}>
@@ -42,8 +27,8 @@ export default function Index(props: HomeProps) {
       <EventsProvider location={props.location}>
         <Map />
         <div className={styles.topBarsContainer}>
-          <SearchBar onChange={onSearchChange} />
-          <CategoryFilter items={null} onChange={onCategoryChange} />
+          <SearchBar />
+          <CategoryFilter />
         </div>
       </EventsProvider>
     </div>
@@ -51,7 +36,7 @@ export default function Index(props: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { location, selectedCategories } = ctx.req.cookies;
+  const { location, categories } = ctx.req.cookies;
 
   return {
     props: {
@@ -60,8 +45,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         long: 0,
         timestamp: 0,
       },
-      selectedCategories:
-        (selectedCategories !== undefined && JSON.parse(selectedCategories)) ||
+      categories:
+        (categories !== undefined && JSON.parse(categories)) ||
         null,
     },
   };

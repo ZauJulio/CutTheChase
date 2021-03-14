@@ -28,12 +28,12 @@
       flex-direction: row;
       
       padding: 0.2rem;
-      
-      background-color: #f8f8f8 !important;
+
       .openAssessments,
       .setFavorite {
         border-width: 0px;
         cursor: pointer;
+        background: transparent;
       }
     }
     .visualElements {
@@ -48,7 +48,8 @@
 
       .photos {
         border-width: 0px;
-        border-radius: 50px;
+        border-radius: 50%;
+        background: transparent;
         cursor: pointer;
         img {
           border-radius: 50%;

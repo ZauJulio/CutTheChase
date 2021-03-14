@@ -1,6 +1,8 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { SelectedCategory } from "../services/interfaces";
+import { SelectableCategory } from "../services/interfaces";
+import { getEvents, getSelectableCategories } from "../services/api";
+import { Event } from "../services/interfaces";
 
 export interface Location {
   lat: number;
@@ -10,8 +12,11 @@ export interface Location {
 
 interface EventsContextData {
   location: Location;
-  selectedCategories: SelectedCategory[];
-  updateLocation;
+  categories: SelectableCategory[];
+  events: Event[];
+  updateLocation: Function;
+  updateCategories: Function;
+  updateSearchArgs: Function;
 }
 
 interface EventsProviderProps {
@@ -23,32 +28,60 @@ export const EventsContext = createContext({} as EventsContextData);
 
 export function EventsProvider({ children, ...rest }: EventsProviderProps) {
   const [location, setLocation] = useState<Location>(rest.location);
-  const [selectedCategories, setSelectedCategories] = useState<
-    SelectedCategory[]
-  >([
-    { id: 1, name: "Música", selected: false },
-    { id: 2, name: "Artes Visuais", selected: false },
-    { id: 3, name: "Festival", selected: false },
-    { id: 4, name: "Dança", selected: false },
-    { id: 5, name: "Sebo", selected: false },
-    { id: 6, name: "Infantil", selected: false },
-  ]);
+  const [searchArgs, setSearchArgs] = useState<string[]>([""]);
+  const [categories, setCategories] = useState<SelectableCategory[]>(
+    getSelectableCategories()
+  );
+  const [events, setEvents] = useState<Event[]>(
+    getEvents(searchArgs, getSelectedCategories(), {
+      lat: location.lat,
+      long: location.long,
+    })
+  );
+
+  function getSelectedCategories() {
+    return categories
+      .map((category) => {
+        if (category.selected) {
+          return category.name;
+        }
+      })
+      .filter((e) => e != null);
+  }
 
   function updateLocation(currentLocation: Location) {
     setLocation(currentLocation);
   }
 
+  function updateCategories(selectedCategories: SelectableCategory[]) {
+    setCategories(selectedCategories);
+  }
+
+  function updateSearchArgs(e: any) {
+    setSearchArgs(e);
+  }
+
   useEffect(() => {
     Cookies.set("location", JSON.stringify(location));
-    Cookies.set("selectedCategories", JSON.stringify(selectedCategories));
-  }, [location, selectedCategories]);
+    Cookies.set("categories", JSON.stringify(getSelectedCategories()));
+
+    setEvents(
+      getEvents(searchArgs, getSelectedCategories(), {
+        lat: location.lat,
+        long: location.long,
+      })
+    );
+  }, [location, categories]);
 
   return (
     <EventsContext.Provider
       value={{
         location,
-        selectedCategories,
+        categories,
+        events,
         updateLocation,
+        updateCategories,
+        updateSearchArgs,
       }}
     >
       {children}

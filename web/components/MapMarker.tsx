@@ -6,7 +6,7 @@ import iconMarker from "../utils/MapMarkerIcon";
 import { Event } from "../services/interfaces";
 import { Evaluation } from "./Appraiser";
 import { getFormatedData } from "../utils/DateTools";
-import { getMiddleImage } from "../utils/.ImageTools";
+import { getMiddleImage } from "../utils/ImageTools";
 import { FaCar } from "react-icons/fa";
 
 import styles from "../styles/components/MapMarker.module.scss";
@@ -39,7 +39,7 @@ function MapMarker(props: PropTypeMapMarker) {
   }
 
   function getPopUp() {
-    if (props.isLoggedIn) {
+    if (true) {
       return (
         <div className={styles.popupContainer}>
           <div className={styles.topContainer}>
@@ -57,7 +57,7 @@ function MapMarker(props: PropTypeMapMarker) {
             </div>
             <div className={styles.visualElements}>
               <button
-                className="photos"
+                className={styles.photos}
                 type="button"
                 onClick={openPhotosGallery}
               >
@@ -69,7 +69,7 @@ function MapMarker(props: PropTypeMapMarker) {
               <div className={styles.distanceContainer}>
                 <a
                   className={styles.routeLink}
-                  href={`https://www.google.com/maps/dir/Caic%C3%B3,+RN,+59300-000/${props.event.lat},${props.event.lng}/`}
+                  href={`https://www.google.com/maps/dir/Caic%C3%B3,+RN,+59300-000/${props.event.adress.lat},${props.event.adress.lng}/`}
                   target="_blank"
                   rel="noreferrer"
                 >

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   MapContainer,
   Marker,
@@ -7,10 +7,9 @@ import {
   ZoomControl,
   useMap,
 } from "react-leaflet";
-import L from "leaflet";
 
-// import MapMarker from "./MapMarker";
-import iconMarker from "../utils/MapMarkerIcon";
+import { Event } from "../services/interfaces";
+import MapMarker from "./MapMarker";
 import { EventsContext } from "../contexts/EventsContext";
 import styles from "../styles/components/Map.module.scss";
 import "leaflet/dist/leaflet.css";
@@ -22,9 +21,7 @@ function ChangeView({ center, zoom }) {
 }
 
 function Map() {
-  const { location, updateLocation, selectedCategories } = useContext(
-    EventsContext
-  );
+  const { location, updateLocation, events } = useContext(EventsContext);
 
   if ((Date.now() - location.timestamp) / 1000 > 120) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -42,14 +39,13 @@ function Map() {
         <ChangeView center={[location.lat, location.long]} zoom={14} />
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-          url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
+          url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
         />
-          {/* {getEvents(searchArgs, getCategorysSelected()).map((event) => {
-            return <MapMarker event={event} />;
-          })} */}
-        <Marker icon={iconMarker} position={[-6.4625567, -37.0962424]}>
-          <Popup>Example map marker</Popup>
-        </Marker>
+
+        {events.map((event: Event) => (
+          <MapMarker event={event} />
+        ))}
+
         <ZoomControl position="bottomright" />
       </MapContainer>
     </div>
