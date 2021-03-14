@@ -7,6 +7,20 @@
   flex-direction: column;
   align-items: center;
 
+  @media (max-width: 720px) {
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+
+    width: 100vw;
+    height: 7rem;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    background: linear-gradient(90deg, #012840 59.36%, #5a002e 100%);
+  }
+
   width: 5rem;
   height: 100vh;
   background: linear-gradient(180deg, #012840 59.36%, #5a002e 100%);
@@ -20,6 +34,11 @@
   .sideBarHeader {
     display: flex;
     flex-direction: column;
+    
+    @media (max-width: 720px) {
+      flex-direction: row;
+    }
+
     justify-content: space-between;
 
     align-items: center;
@@ -45,58 +64,79 @@
     .sepMenu {
       height: 11px;
       width: 5rem;
+
       margin-top: 20px;
       background-color: #ffffffed;
+      
+      @media (max-width: 720px) {
+          height: 9rem;
+          width: 10px;
+
+          margin-left: 1rem;
+        }
     }
   }
 
-  .sidebarContent{
+  .sidebarContent {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
+    
     height: 100%;
 
+    @media (max-width: 720px) {
+      flex-direction: row;
+      gap: 3rem;
+    }
     .sideBarMain {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-  
+
       gap: 3rem;
-  
+
+      @media (max-width: 720px) {
+        flex-direction: row;
+      }
+
       svg {
         width: 2.5rem;
         height: auto;
       }
     }
-  
+
     .sideBarFooter {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-  
+
       gap: 2rem;
-  
       margin-bottom: 2rem;
+
+      @media (max-width: 720px) {
+        flex-direction: row;
+        margin-bottom: 0;
+      }
+
       svg {
         width: 2.5rem;
         height: auto;
       }
-  
+
       .sideBarlogOut {
         display: flex;
         justify-content: center;
         align-items: center;
-  
+
         border-radius: 50%;
         box-sizing: content-box;
         width: 3rem;
         height: 3rem;
         border: 2px solid #ffff;
-  
+
         svg {
           width: 2rem;
           height: auto;

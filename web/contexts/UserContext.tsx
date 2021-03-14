@@ -48,7 +48,7 @@ export function UserProvider({ children, ...rest }: UserProviderProps) {
   useEffect(() => {
     const credentials = JSON.parse(localStorage.getItem("CutTheChase"));
 
-    if (credentials !== undefined) {
+    if (credentials !== null) {
       loginUser(credentials.user.email, credentials.user.password);
     } else {
       console.log("User not detected")
@@ -63,8 +63,6 @@ export function UserProvider({ children, ...rest }: UserProviderProps) {
         selectedCategories.push(categories[i]);
       }
     }
-
-    updateCategories(selectedCategories);
   }, [user]);
 
   return (

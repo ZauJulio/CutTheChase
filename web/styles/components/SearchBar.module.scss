@@ -1,4 +1,3 @@
-
 .searchBar {
   ::-webkit-input-placeholder {
     color: #022e40;
@@ -12,31 +11,39 @@
   :-moz-placeholder {
     color: #022e40;
   }
-  
+
   *:focus {
     outline: 0 !important;
   }
-  
-  width: 100%;
 
   display: flex;
   flex-direction: row;
 
   .searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     input,
     input:hover {
-      display: block;
-      width: calc(100vw - 48em);
+      font-size: 20px;
+      width: 70vw;
 
+      @media (max-width: 720px) {
+        width: calc(100vw - 10rem);
+      }
       padding: 1.15em;
-      border-color: transparent;
-      background-color: transparent;
+
       border: transparent;
+      border-color: transparent;
+
+      background-color: transparent;
+
       text-align: end;
       text-indent: 2em;
       color: #022e40;
     }
-    height: 4rem;
+    height: 5rem;
 
     background: rgba(248, 248, 248, 0.9);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -48,13 +55,16 @@
     border-color: transparent;
     background-color: transparent;
     border: transparent;
+
     margin-top: 0em;
-    height: 4rem;
+    height: 5rem;
+    min-width: 4rem;
+
     .icon {
       margin-left: -0.6em;
       padding-left: 0.7em;
     }
-    width: 4rem;
+
     background-color: rgba(248, 248, 248, 0.9);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0px 50px 50px 0px;

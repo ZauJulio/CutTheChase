@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { BsFillHeartFill, BsHeart } from "react-icons/bs";
 
@@ -9,6 +9,7 @@ import { getFormatedData } from "../utils/DateTools";
 import { getMiddleImage } from "../utils/ImageTools";
 import { FaCar } from "react-icons/fa";
 
+import { UserContext } from "../contexts/UserContext";
 import styles from "../styles/components/MapMarker.module.scss";
 
 interface PropTypeMapMarker {
@@ -16,6 +17,7 @@ interface PropTypeMapMarker {
 };
 
 function MapMarker(props: PropTypeMapMarker) {
+  const { role } = useContext(UserContext)
   const [favorite, setFavorite] = useState<boolean>(true);
 
   function openPhotosGallery(
@@ -37,9 +39,9 @@ function MapMarker(props: PropTypeMapMarker) {
     console.log(e);
     setFavorite(!favorite);
   }
-
+  
   function getPopUp() {
-    if (true) {
+    if (role !== null) {
       return (
         <div className={styles.popupContainer}>
           <div className={styles.topContainer}>

@@ -1,23 +1,4 @@
-
-#page-map {
-  svg {
-    position: relative !important;
-  }
-  .Map {
-    .leaflet-pane.leaflet-map-pane {
-      .leaflet-pane.leaflet-popup-pane {
-        .leaflet-popup-content-wrapper {
-          background-color: #f8f8f8;
-          border-radius: 30px;
-        }
-      }
-    }
-  }
-}
-
-
 .popupContainer {
-  display: relative;
   width: 100%;
   font-size: 1.5rem;
   .topContainer {
@@ -93,14 +74,14 @@
       }
     }
   }
-  .text-description {
+  .textDescription {
     .name,
     .date,
     .locality,
     .description,
     .site {
-      font-family: "Big Shoulders Text";
-      font-weight: 400;
+      font-family: Big Shoulders Text;
+      font-weight: medium;
       color: #022E40;
     }
     .name {

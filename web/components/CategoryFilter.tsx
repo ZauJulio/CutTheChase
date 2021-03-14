@@ -28,7 +28,7 @@ function CategoryFilter() {
 
   return (
     <div className={styles.categoriesContainer}>
-      <button className={styles.submit} type="button" onClick={expand}>
+      <button className={styles.expand} type="button" onClick={expand}>
         Categorias
         {!expanded && <IoIosArrowDown />}
         {expanded && <IoIosArrowUp />}

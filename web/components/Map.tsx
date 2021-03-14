@@ -23,6 +23,7 @@ function ChangeView({ center, zoom }) {
 function Map() {
   const { location, updateLocation, events } = useContext(EventsContext);
 
+  function currentLocation(e) {}
   if ((Date.now() - location.timestamp) / 1000 > 120) {
     navigator.geolocation.getCurrentPosition((position) => {
       updateLocation({
@@ -46,7 +47,6 @@ function Map() {
           <MapMarker event={event} />
         ))}
 
-        <ZoomControl position="bottomright" />
       </MapContainer>
     </div>
   );
