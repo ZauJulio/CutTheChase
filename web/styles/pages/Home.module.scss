@@ -1,13 +1,12 @@
 .eventsContainer {
-  display: block;
   .header-bars {
     display: flex;
     justify-content: flex-end;
   }
 
   .topBarsContainer {
-    z-index: 1000;
     position: absolute;
+    z-index: 501;
 
     display: flex;
 

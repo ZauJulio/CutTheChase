@@ -16,7 +16,7 @@ interface HomeProps {
 }
 
 export default function Index(props: HomeProps) {
-  const Map = dynamic(() => import("../components/Map"), { ssr: false });
+  const Map = dynamic(() => import("../components/Map/Map"), { ssr: false });
 
   return (
     <div className={styles.eventsContainer}>
@@ -25,11 +25,11 @@ export default function Index(props: HomeProps) {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <EventsProvider location={props.location}>
-        <Map />
         <div className={styles.topBarsContainer}>
           <SearchBar />
           <CategoryFilter />
         </div>
+        <Map />
       </EventsProvider>
     </div>
   );

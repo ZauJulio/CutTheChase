@@ -1,17 +1,14 @@
 import React, { useContext } from "react";
 import {
   MapContainer,
-  Marker,
-  Popup,
   TileLayer,
-  ZoomControl,
   useMap,
 } from "react-leaflet";
 
-import { Event } from "../services/interfaces";
-import MapMarker from "./MapMarker";
-import { EventsContext } from "../contexts/EventsContext";
-import styles from "../styles/components/Map.module.scss";
+import { Event } from "../../services/interfaces";
+import MapMarker from "./EventMarker";
+import { EventsContext } from "../../contexts/EventsContext";
+import styles from "../../styles/components/Map.module.scss";
 import "leaflet/dist/leaflet.css";
 
 function ChangeView({ center, zoom }) {
@@ -23,7 +20,6 @@ function ChangeView({ center, zoom }) {
 function Map() {
   const { location, updateLocation, events } = useContext(EventsContext);
 
-  function currentLocation(e) {}
   if ((Date.now() - location.timestamp) / 1000 > 120) {
     navigator.geolocation.getCurrentPosition((position) => {
       updateLocation({
@@ -46,7 +42,6 @@ function Map() {
         {events.map((event: Event) => (
           <MapMarker event={event} />
         ))}
-
       </MapContainer>
     </div>
   );

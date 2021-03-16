@@ -1,13 +1,26 @@
 .popupContainer {
   width: 100%;
   font-size: 1.5rem;
+  
+  z-index: 1000;
+  background: white;
+  
+  @media (max-width: 720px) {
+    padding: 2rem;
+    height: 100vh;
+
+    display: block;
+    position: absolute !important;
+    
+  }
+  
   .topContainer {
     .topIcons {
       display: flex;
       justify-content: flex-start;
       justify-items: flex-start;
       flex-direction: row;
-      
+
       padding: 0.2rem;
 
       .openAssessments,
@@ -22,10 +35,14 @@
 
       display: flex;
       flex-direction: column;
-
+      
       position: absolute;
       right: 1rem;
       top: 1rem;
+
+      // @media (max-width: 720px) {
+      //   position: relative;
+      // }
 
       .photos {
         border-width: 0px;
@@ -40,7 +57,7 @@
           width: 8rem;
 
           display: block;
-          position: relative !important;
+          position: relative;
         }
       }
       .distanceContainer {
@@ -82,7 +99,7 @@
     .site {
       font-family: Big Shoulders Text;
       font-weight: medium;
-      color: #022E40;
+      color: #022e40;
     }
     .name {
       font-size: 48px;
@@ -128,7 +145,7 @@
       font-family: "Roboto";
       font-weight: 400;
       font-size: 18;
-      color: #022E40;
+      color: #022e40;
 
       cursor: pointer;
     }
