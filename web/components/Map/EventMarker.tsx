@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Marker, Popup } from "react-leaflet";
-import { BsArrowReturnLeft } from "react-icons/bs";
+import React, { useState } from "react";
+import { Marker} from "react-leaflet";
 
-import useWindowSize from "../../utils/useWindowSize";
 import iconMarker from "../../utils/MapMarkerIcon";
 import { Event } from "../../services/interfaces";
 
 import ModalEvent from "./ModalEvent";
-
-import styles from "../../styles/components/Modal.module.scss";
 
 interface EventMarkerProps {
   event: Event;
 }
 
 function EventMarker(props: EventMarkerProps) {
-  const size = useWindowSize();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -29,27 +24,8 @@ function EventMarker(props: EventMarkerProps) {
             setShowModal(!showModal);
           },
         }}
-      >
-        {size.width > 720 && (
-          <Popup closeButton={false} minWidth={555}>
-            <ModalEvent event={props.event} />
-          </Popup>
-        )}
-      </Marker>
-      {size.width < 720 && showModal && (
-        <div className={styles.modal}>
-          <button
-            type="button"
-            className={styles.closeButton}
-            onClick={() => {
-              setShowModal(!showModal);
-            }}
-          >
-            <BsArrowReturnLeft />
-          </button>
-          <ModalEvent event={props.event} />
-        </div>
-      )}
+      ></Marker>
+      {showModal && <ModalEvent event={props.event} />}
     </>
   );
 }

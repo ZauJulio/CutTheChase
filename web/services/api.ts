@@ -53,6 +53,12 @@ var user: User = {
   favorites: _favorite,
 };
 
+var images: Image[] = [
+  { id: "1", url: "./images/1.jpg" },
+  { id: "2", url: "./images/2.jpg" },
+  { id: "3", url: "./images/3.jpg" },
+];
+
 var events: Event[] = [
   {
     id: 1,
@@ -80,11 +86,7 @@ var events: Event[] = [
         showName: true,
       },
     ],
-    photos: [
-      { id: "1", url: "./images/1.jpg" },
-      { id: "2", url: "./images/2.jpg" },
-      { id: "3", url: "./images/3.jpg" },
-    ],
+    images: images,
     repeat: { id: 1, frequency: "d" },
     promotor: user,
     category: [{ id: 1, name: "Artes Visuais" }],

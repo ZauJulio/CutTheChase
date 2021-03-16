@@ -49,15 +49,21 @@ function Appraiser(onChange: any) {
   );
 }
 
-type EvaluationProps = {
-  className: string
+interface EvaluationProps {
+  className: string;
   rate: number;
 }
 
 export function Evaluation(props: EvaluationProps) {
   return (
     <div>
-      <Rating className={props.className} name="read-only" value={props.rate} precision={0.5} readOnly />
+      <Rating
+        className={props.className}
+        name="read-only"
+        value={props.rate}
+        precision={0.5}
+        readOnly
+      />
     </div>
   );
 }

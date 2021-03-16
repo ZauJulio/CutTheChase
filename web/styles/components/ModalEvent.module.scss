@@ -1,90 +1,77 @@
-.popupContainer {
-  width: 100%;
-  font-size: 1.5rem;
+.modalEventContainer {
+  position: absolute;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 70vh;
+  width: 40rem;
+
   background: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
+  font-size: 1.5rem;
   
   @media (max-width: 720px) {
-    position: absolute !important;
-    z-index: 1000 !important;
-
-    padding: 2rem;
     height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+    overflow-y: auto;
   }
-  
+
+  .closeButton {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 1rem;
+    left: 1rem;
+
+    width: 3rem;
+    height: 3rem;
+
+    background: #ffffff;
+
+    border: 2px;
+    border-color: #022e40;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    svg {
+      color: var(--primary-color);
+    }
+  }
+
   .topContainer {
-    .topIcons {
-      display: flex;
-      justify-content: flex-start;
-      justify-items: flex-start;
-      flex-direction: row;
-
-      padding: 0.2rem;
-
-      .openAssessments,
-      .setFavorite {
-        border-width: 0px;
-        cursor: pointer;
-        background: transparent;
-      }
-    }
-    .visualElements {
-      width: 9rem;
-
-      display: flex;
-      flex-direction: column;
-      
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-
-      .photos {
-        border-width: 0px;
-        border-radius: 50%;
-        background: transparent;
-        cursor: pointer;
-        img {
-          border-radius: 50%;
-          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-          height: 8rem;
-          width: 8rem;
-
-          display: block;
-          position: relative;
-        }
-      }
-      .distanceContainer {
-        display: flex;
-        justify-content: center;
-        margin-top: 1rem;
-        .routeLink {
-          margin-top: -0.2rem;
-          height: 50%;
-
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-
-          outline: 0;
-          text-decoration: none;
-          cursor: pointer;
-          .distance {
-            margin-left: -1.2rem;
-            margin-right: 0.6rem;
-            margin-top: 0.1rem;
-
-            font-family: Big Shoulders Text;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-
-            color: #ff0404;
-          }
-        }
-      }
+    width: 100%;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    
+    gap: 1rem;
+    padding-left: 2rem;
+    margin-top: 2rem;
+    .openAssessments,
+    .setFavorite {
+      border-width: 0px;
+      cursor: pointer;
+      background: transparent;
     }
   }
+
   .textDescription {
+    padding: 2rem;
+
     .name,
     .date,
     .locality,
@@ -120,13 +107,41 @@
       margin-bottom: 1px;
     }
   }
-  .buttonContainer {
-    display: flex;
-    justify-content: flex-end;
 
+  .bottomContainer {
     position: absolute;
-    bottom: 1.5rem;
-    right: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    bottom: 2rem;
+    right: 2rem;
+    @media (max-width: 720px) {
+      bottom: 10rem;
+    }
+
+    .routeLink {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 4rem;
+      height: 4rem;
+
+      background: var(--primary-color);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+      border-radius: 50%;
+      a {
+        svg {
+          color: white;
+        }
+      }
+    }
     .rating {
       background: #ffffff;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

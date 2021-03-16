@@ -1,6 +1,6 @@
 .modal {
   position: absolute;
-  z-index: 1000;
+  z-index: 1100;
 
   display: flex;
   flex-direction: column;
@@ -12,19 +12,22 @@
 
   .closeButton {
     position: absolute;
-    z-index: 1100;
+    z-index: 1500;
 
     cursor: pointer;
     width: 5rem;
-    top: 10px;
-    left: 0;
+    height: 5rem;
+    bottom: 8rem;
+    right: 1rem;
     
     border: 0;
     padding: 0.2rem;
 
     justify-content: flex-end;
     align-items: center;
-    background: rgb(248, 248, 248);
+
+    background: #648997;
+    border-radius: 50%;
 
     svg {
       color: var(--primary-color);

@@ -65,7 +65,7 @@ export interface Event {
   promotor: User;
   adress: Adress;
   assessments: Assessment[];
-  photos: Image[];
+  images: Image[];
   category: Category[];
 }
 

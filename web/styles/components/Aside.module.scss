@@ -1,24 +1,10 @@
 .asideContainer {
-  z-index: 1000;
-
   position: fixed;
+  z-index: 10000;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 720px) {
-    flex-direction: row;
-    bottom: 0;
-
-    width: 100vw;
-    height: 6rem;
-
-    overflow-y: hidden;
-    overflow-x: auto;
-
-    background: linear-gradient(90deg, #012840 59.36%, #5a002e 100%);
-  }
 
   width: 5rem;
   height: 100vh;
@@ -28,9 +14,19 @@
     cursor: pointer;
   }
 
-  overflow-y: auto;
-  overflow-x: hidden;
+  @media (max-width: 720px) {
+    flex-direction: row;
+    bottom: 0;
 
+    width: 100vw;
+    height: 6rem;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    background: linear-gradient(90deg, #012840 59.36%, #5a002e 100%);
+  }
+  
   .sideBarHeader {
     display: flex;
     flex-direction: column;
