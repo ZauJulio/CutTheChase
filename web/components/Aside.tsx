@@ -1,63 +1,64 @@
 import React from "react";
 import Link from "next/link";
-import {
-  FaHeart,
-  FaMapMarkedAlt,
-  FaPencilAlt,
-  FaUsersCog,
-  FaUserAlt,
-} from "react-icons/fa";
+import { withRouter } from "next/router";
+
+import { FaMapMarkedAlt, FaUsersCog, FaUserAlt } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
-import { RiLogoutBoxLine } from "react-icons/ri";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import { BsCalendarFill, BsGearFill } from "react-icons/bs";
 
 import styles from "../styles/components/Aside.module.scss";
 
-function Aside() {
+function Aside({ router }) {
+  const logged = true;
+  let role = "admin";
+
   return (
     <aside className={styles.asideContainer}>
       <header className={styles.sideBarHeader}>
         <div className={styles.logo}>
           <Link href="/Landing">
-            <FcCalendar/>
+            <FcCalendar />
           </Link>
         </div>
         <div className={styles.sepMenu} />
       </header>
+
       <div className={styles.sidebarContent}>
-        <main className={styles.sideBarMain}>
-          <Link href="/Login">
-            <FaUserAlt />
-          </Link>
+        <Link href="/Login">
+          <FaUserAlt />
+        </Link>
+
+        {router.pathname !== "/" && (
           <Link href="/">
             <FaMapMarkedAlt />
           </Link>
-          <Link href="/Favorites">
-            <FaHeart />
-          </Link>
-          <Link href="/Rating">
-            <FaPencilAlt />
-          </Link>
-        </main>
-        <footer className={styles.sideBarFooter}>
+        )}
+
+        {role === "admin" && (
           <Link href="/Users">
             <FaUsersCog />
           </Link>
+        )}
+
+        {(role === "promotor" || role === "admin") && (
           <Link href="/Events">
             <BsCalendarFill />
           </Link>
-          <Link href="/preferences">
-            <BsGearFill />
+        )}
+
+        <Link href="/preferences">
+          <BsGearFill />
+        </Link>
+
+        {logged === true && (
+          <Link href="/">
+            <RiLogoutCircleLine />
           </Link>
-          <div className={styles.sideBarlogOut}>
-            <Link href="/">
-              <RiLogoutBoxLine />
-            </Link>
-          </div>
-        </footer>
+        )}
       </div>
     </aside>
   );
 }
 
-export default Aside;
+export default withRouter(Aside);

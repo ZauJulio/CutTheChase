@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
-
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 import useWindowSize from "../../utils/useWindowSize";
 import iconMarker from "../../utils/MapMarkerIcon";
@@ -46,7 +45,7 @@ function EventMarker(props: EventMarkerProps) {
               setShowModal(!showModal);
             }}
           >
-            <AiOutlineCloseCircle />
+            <BsArrowReturnLeft />
           </button>
           <ModalEvent event={props.event} />
         </div>

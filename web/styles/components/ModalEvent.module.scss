@@ -1,17 +1,14 @@
 .popupContainer {
   width: 100%;
   font-size: 1.5rem;
-  
-  z-index: 1000;
   background: white;
   
   @media (max-width: 720px) {
+    position: absolute !important;
+    z-index: 1000 !important;
+
     padding: 2rem;
     height: 100vh;
-
-    display: block;
-    position: absolute !important;
-    
   }
   
   .topContainer {
@@ -39,10 +36,6 @@
       position: absolute;
       right: 1rem;
       top: 1rem;
-
-      // @media (max-width: 720px) {
-      //   position: relative;
-      // }
 
       .photos {
         border-width: 0px;
@@ -99,7 +92,7 @@
     .site {
       font-family: Big Shoulders Text;
       font-weight: medium;
-      color: #022e40;
+      color: var(--primary-color);
     }
     .name {
       font-size: 48px;

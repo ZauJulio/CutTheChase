@@ -32,7 +32,7 @@ function Map() {
 
   return (
     <div className={styles.map}>
-      <MapContainer className={styles.mapContainer}>
+      <MapContainer className={styles.mapContainer} zoomControl={false}>
         <ChangeView center={[location.lat, location.long]} zoom={14} />
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'

@@ -98,6 +98,8 @@ var categories: Category[] = [
   { id: 4, name: "Dança" },
   { id: 5, name: "Sebo" },
   { id: 6, name: "Infantil" },
+  { id: 7, name: "Favoritos" },
+  { id: 8, name: "Avaliados" },
 ];
 
 export function getSelectableCategories() {

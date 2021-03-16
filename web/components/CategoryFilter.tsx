@@ -1,13 +1,7 @@
 import React, { useContext, useState } from "react";
-import Checkbox from "@material-ui/core/Checkbox";
-
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Category } from "../services/interfaces";
-import { SelectableCategory } from "../services/interfaces";
 
 import { EventsContext } from "../contexts/EventsContext";
-
 import styles from "../styles/components/Categories.module.scss";
 
 function CategoryFilter() {
