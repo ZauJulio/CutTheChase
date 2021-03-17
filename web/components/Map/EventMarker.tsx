@@ -8,24 +8,30 @@ import ModalEvent from "./ModalEvent";
 
 interface EventMarkerProps {
   event: Event;
+  setUseScroll: Function;
 }
 
-function EventMarker(props: EventMarkerProps) {
+function EventMarker({event, setUseScroll}: EventMarkerProps) {
   const [showModal, setShowModal] = useState(false);
+
+  function freeScroll() {
+    setUseScroll(true)
+  }
 
   return (
     <>
       <Marker
-        key={props.event.name}
+        key={event.name}
         icon={iconMarker}
-        position={[props.event.adress.lat, props.event.adress.lng]}
+        position={[event.adress.lat, event.adress.lng]}
         eventHandlers={{
           click: (e) => {
             setShowModal(!showModal);
+            setUseScroll(false)
           },
         }}
       ></Marker>
-      {showModal && <ModalEvent event={props.event} />}
+      {showModal && <ModalEvent event={event} callback={freeScroll}/>}
     </>
   );
 }

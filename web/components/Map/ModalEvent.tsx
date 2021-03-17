@@ -15,6 +15,7 @@ import ImagesSlider from "../ImagesSlider";
 
 interface ModalEventProps {
   event: Event;
+  callback: Function;
 }
 
 export function ModalEvent(props: ModalEventProps) {
@@ -44,6 +45,7 @@ export function ModalEvent(props: ModalEventProps) {
             className={styles.closeButton}
             onClick={() => {
               setShowModal(!showModal);
+              props.callback()
             }}
           >
             <BsArrowReturnLeft />

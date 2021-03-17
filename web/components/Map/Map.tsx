@@ -1,9 +1,5 @@
-import React, { useContext } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  useMap,
-} from "react-leaflet";
+import React, { useContext, useEffect, useState } from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import { Event } from "../../services/interfaces";
 import MapMarker from "./EventMarker";
@@ -11,14 +7,28 @@ import { EventsContext } from "../../contexts/EventsContext";
 import styles from "../../styles/components/Map.module.scss";
 import "leaflet/dist/leaflet.css";
 
-function ChangeView({ center, zoom }) {
+interface ChangeViewProps {
+  center: [number, number];
+  zoom: number;
+  useScrollWheelZoom: boolean;
+}
+
+function ChangeView({ center, zoom, useScrollWheelZoom }: ChangeViewProps) {
   const map = useMap();
   map.setView(center, zoom);
+
+  if (useScrollWheelZoom) {
+    map.scrollWheelZoom.enable();
+  } else {
+    map.scrollWheelZoom.disable();
+  }
+
   return null;
 }
 
 function Map() {
   const { location, updateLocation, events } = useContext(EventsContext);
+  const [useScroll, setUseScroll] = useState(true);
 
   if ((Date.now() - location.timestamp) / 1000 > 120) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -33,14 +43,21 @@ function Map() {
   return (
     <div className={styles.map}>
       <MapContainer className={styles.mapContainer} zoomControl={false}>
-        <ChangeView center={[location.lat, location.long]} zoom={14} />
+        <ChangeView
+          center={[location.lat, location.long]}
+          zoom={14}
+          useScrollWheelZoom={useScroll}
+        />
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
           url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
         />
 
         {events.map((event: Event) => (
-          <MapMarker event={event} />
+          <MapMarker
+            event={event}
+            setUseScroll={setUseScroll}
+          />
         ))}
       </MapContainer>
     </div>
