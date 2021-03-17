@@ -16,6 +16,7 @@ function EventMarker({ event, setUseScroll }: EventMarkerProps) {
 
   function freeScroll() {
     setUseScroll(true);
+    setShowModal(!showModal);
   }
 
   return (

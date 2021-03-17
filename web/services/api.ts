@@ -2,14 +2,10 @@ import {
   Adress,
   Image,
   Category,
-  Assessment,
   Favorite,
-  Role,
   Preferences,
   User,
-  Repeat,
   Event,
-  SelectableCategory,
 } from "./interfaces";
 
 var _adress: Adress = {
@@ -73,16 +69,34 @@ var events: Event[] = [
     assessments: [
       {
         id: 1,
-        user: "Fulano",
-        evaluation: "Show",
+        user: "João",
+        evaluation:
+          "Surpreendeu as expectativas, eu e minha família gostamos muito.",
         rate: 4.8,
         showName: true,
       },
       {
         id: 2,
-        user: "Cicano",
-        evaluation: "Legal",
+        user: "Pedro",
+        evaluation:
+          "Muito bom, gostei bastante,pretendo voltar novamente,um ótimo lugar para passar o tempo com amigos...",
         rate: 3.7,
+        showName: false,
+      },
+      {
+        id: 3,
+        user: "Maria",
+        evaluation:
+          "Durante o mês de agosto acontece a famosa festa da padroeira da cidade Sant'Ana, que atrai multidão de várias cidades do Seridó. O arco em frente à igreja é imponente e muito lindo.",
+        rate: 3.2,
+        showName: true,
+      },
+      {
+        id: 4,
+        user: "Moisés",
+        evaluation:
+          "A Festa de Santana de Caicó é considerado o maior evento sócio-religioso do estado, e é a primeira manifestação do estado a entrar para a lista de Patrimônio Imaterial do Brasil.",
+        rate: 5.0,
         showName: true,
       },
     ],

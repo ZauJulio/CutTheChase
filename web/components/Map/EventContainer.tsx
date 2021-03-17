@@ -101,6 +101,29 @@ export function EventContainer({ event, callback }: EventContainerProps) {
                     </button>
                   )}
                 </div>
+                <div className={styles.assessmentsContainer}>
+                  <h2>Avaliações</h2>
+                  <div className={styles.assessmentsTitleSeperator} />
+                  <div className={styles.assessments}>
+                    {event.assessments.map((rate, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className={`${styles.assessment} ${index}`}
+                        >
+                          <div className={styles.assessmentAuthor}>
+                            <h3>{rate.showName ? rate.user : "Anônimo"}</h3>
+                            <Evaluation
+                              className={styles.rating}
+                              rate={rate.rate}
+                            />
+                          </div>
+                          <p>{rate.evaluation}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

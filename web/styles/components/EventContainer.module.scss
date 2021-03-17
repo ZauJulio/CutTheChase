@@ -1,5 +1,21 @@
 .modal {
-  z-index: 9999;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 15px;
+    background: rgb(228, 228, 228);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 20px;
+    border: 0;
+  }
+
+  position: absolute;
+  z-index: 1200;
 
   height: 100vh;
   width: 100vw;
@@ -9,10 +25,23 @@
   align-items: center;
 
   background: #022e4080;
-  // transition: background 1s ease;
 }
 
 .eventDetails {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 20px;
+    border: 0;
+  }
+
   overflow-y: auto;
 
   display: flex;
@@ -58,7 +87,7 @@
       width: 3rem;
       height: 3rem;
 
-      background: #022e40;
+      background: var(--primary-color);
 
       border: 2px;
       border-radius: 50%;
@@ -75,8 +104,8 @@
 
       &:hover {
         background: white;
-        svg{
-          color: #022e40;
+        svg {
+          color: var(--primary-color);
         }
       }
     }
@@ -101,6 +130,10 @@
       width: 100vw;
 
       border-radius: 0;
+
+      .imagesSlider{
+        margin-top: 50vh;
+      }
     }
 
     .topContainer {
@@ -125,9 +158,12 @@
       position: relative;
 
       display: grid;
-      grid-template-columns: 90% 10%;
+      grid-template-areas:
+        "content content content links"
+        "assessments assessments assessments assessments";
 
       .content {
+        grid-area: content;
         padding: 2rem;
 
         .name,
@@ -163,10 +199,13 @@
         .description {
           margin-top: 2rem;
           margin-bottom: 1px;
+          font-weight: 500;
+          font-size: 26px;
         }
       }
 
       .linksContainer {
+        grid-area: links;
         position: absolute;
         bottom: 0;
         right: 0;
@@ -213,14 +252,94 @@
           font-family: "Roboto";
           font-weight: 400;
           font-size: 18;
-          color: #022e40;
+          color: var(--primary-color);
 
           cursor: pointer;
           transition: background 0.3s ease;
 
           &:hover {
-            background: #022e40;
+            background: var(--primary-color);
             color: white;
+          }
+        }
+      }
+
+      .assessmentsContainer {
+        grid-area: assessments;
+
+        display: flex;
+        flex-direction: column;
+
+        color: black;
+
+        margin-bottom: 5rem;
+        
+        @media (max-width: 720px) {
+          justify-content: center;
+          align-items: center;
+        }
+
+        h2 {
+          color: var(--primary-color);
+          margin-top: 2rem;
+
+          font-family: Roboto;
+          font-weight: 500;
+        }
+
+        .assessmentsTitleSeperator {
+          background-color: gray;
+          height: 1px;
+          margin-right: 5rem;
+          margin-bottom: 3rem;
+        }
+
+        .assessments {
+          display: flex;
+
+          justify-content: space-between;
+          align-items: flex-start;
+
+          gap: 2rem;
+
+          height: 19rem;
+          overflow-x: scroll;
+
+          @media (min-width: 721px) {
+            width: 40rem;
+          }
+
+          @media (max-width: 720px) {
+            width: 80vw;
+            padding-left: 2rem;
+          }
+
+          .assessment {
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: flex-start;
+            .assessmentAuthor {
+              display: flex;
+              flex-direction: row;
+
+              align-items: center;
+              justify-content: center;
+
+              gap: 20px;
+              color: var(--primary-color);
+
+              h3 {
+                font-weight: 400;
+              }
+            }
+
+            p {
+              display: block;
+              width: 25rem;
+              text-align: justify;
+            }
           }
         }
       }
