@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { Marker} from "react-leaflet";
+import { Marker } from "react-leaflet";
 
 import iconMarker from "../../utils/MapMarkerIcon";
 import { Event } from "../../services/interfaces";
 
-import ModalEvent from "./ModalEvent";
+import EventContainer from "./EventContainer";
 
 interface EventMarkerProps {
   event: Event;
-  setUseScroll: Function;
+  setUseScroll?: Function;
 }
 
-function EventMarker({event, setUseScroll}: EventMarkerProps) {
+function EventMarker({ event, setUseScroll }: EventMarkerProps) {
   const [showModal, setShowModal] = useState(false);
 
   function freeScroll() {
-    setUseScroll(true)
+    setUseScroll(true);
   }
 
   return (
@@ -27,11 +27,18 @@ function EventMarker({event, setUseScroll}: EventMarkerProps) {
         eventHandlers={{
           click: (e) => {
             setShowModal(!showModal);
-            setUseScroll(false)
+            {
+              setUseScroll !== undefined && setUseScroll(false);
+            }
           },
         }}
       ></Marker>
-      {showModal && <ModalEvent event={event} callback={freeScroll}/>}
+      {showModal && (
+        <EventContainer
+          event={event}
+          callback={setUseScroll !== undefined ? freeScroll : null}
+        />
+      )}
     </>
   );
 }

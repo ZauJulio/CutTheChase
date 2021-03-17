@@ -8,14 +8,13 @@ import styles from "../../styles/components/Map.module.scss";
 import "leaflet/dist/leaflet.css";
 
 interface ChangeViewProps {
-  center: [number, number];
-  zoom: number;
   useScrollWheelZoom: boolean;
 }
 
-function ChangeView({ center, zoom, useScrollWheelZoom }: ChangeViewProps) {
+function ChangeView({ useScrollWheelZoom }: ChangeViewProps) {
   const map = useMap();
-  map.setView(center, zoom);
+
+  map.setView(map.getCenter(), map.getZoom());
 
   if (useScrollWheelZoom) {
     map.scrollWheelZoom.enable();
@@ -42,22 +41,20 @@ function Map() {
 
   return (
     <div className={styles.map}>
-      <MapContainer className={styles.mapContainer} zoomControl={false}>
-        <ChangeView
-          center={[location.lat, location.long]}
-          zoom={14}
-          useScrollWheelZoom={useScroll}
-        />
+      <MapContainer
+        className={styles.mapContainer}
+        center={[location.lat, location.long]}
+        zoom={14}
+        zoomControl={false}
+      >
+        <ChangeView useScrollWheelZoom={useScroll} />
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
           url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
         />
 
         {events.map((event: Event) => (
-          <MapMarker
-            event={event}
-            setUseScroll={setUseScroll}
-          />
+          <MapMarker event={event} setUseScroll={setUseScroll} />
         ))}
       </MapContainer>
     </div>
