@@ -23,6 +23,7 @@ export default function Index(props: HomeProps) {
       <Head>
         <title>Cut The Chase | Eventos</title>
         <link rel="icon" href="/favicon.svg" />
+        <meta name="description" content="Seu mapa de eventos direto ao ponto. Busque e promova diversos tipos de eventos mais próximos de você." />
       </Head>
       <EventsProvider location={props.location}>
         <div className={styles.topBarsContainer}>
