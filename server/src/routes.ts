@@ -15,7 +15,7 @@ routes.get("/event", UsersController.get);
 // Add
 routes.post("/eventCreate", upload.array("images"), UsersController.create);
 // Update by id
-routes.post("/eventUpdate", upload.array("images"), UsersController.update);
+// routes.post("/eventUpdate", upload.array("images"), UsersController.update);
 // Delete by id
 routes.post("/eventDelete", UsersController.delete);
 
@@ -28,7 +28,7 @@ routes.get("/login", UsersController.login);
 // Add
 routes.post("/userCreate", UsersController.create);
 // Update by email
-routes.post("/userUpdate", UsersController.update);
+// routes.post("/userUpdate", UsersController.update);
 // Delete by email
 routes.post("/userDelete", UsersController.delete);
 

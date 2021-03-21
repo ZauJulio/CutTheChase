@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { firestore } from "../database/firebase";
+import firestore from "../database/firestore";
 import { UserDataValidate } from "../database/schema/UserSchema";
 
 
@@ -102,43 +102,43 @@ export default {
     return response.status(201).json("user created");
   },
 
-  async update(request: Request, response: Response) {
-    const {
-      name,
-      email,
-      password,
-      preferences,
-      role,
-      favorites,
-    } = request.body;
+  // async update(request: Request, response: Response) {
+  //   const {
+  //     name,
+  //     email,
+  //     password,
+  //     preferences,
+  //     role,
+  //     favorites,
+  //   } = request.body;
 
-    const data = {
-      name,
-      email,
-      password,
-      preferences,
-      role,
-      favorites,
-    };
+  //   const data = {
+  //     name,
+  //     email,
+  //     password,
+  //     preferences,
+  //     role,
+  //     favorites,
+  //   };
 
-    await UserDataValidate(data);
+  //   await UserDataValidate(data);
 
-    const usersRef = firestore.collection("users");
-    const queryRef = await usersRef.where("email", "==", email).get();
+  //   const usersRef = firestore.collection("users");
+  //   const queryRef = await usersRef.where("email", "==", email).get();
 
-    if (queryRef.empty) {
-      return response.status(404).json("User not found");
-    }
+  //   if (queryRef.empty) {
+  //     return response.status(404).json("User not found");
+  //   }
 
-    let docId: string = "";
+  //   let docId: string = "";
 
-    queryRef.forEach((doc) => {
-      docId = doc.id;
-    });
+  //   queryRef.forEach((doc) => {
+  //     docId = doc.id;
+  //   });
 
-    const updateUser = firestore.collection("users").doc(docId);
-    await updateUser.update(data);
+  //   const updateUser = firestore.collection("users").doc(docId);
+  //   await updateUser.update(data);
 
-    return response.status(200).json("user updated");
-  },
+  //   return response.status(200).json("user updated");
+  // },
 };
