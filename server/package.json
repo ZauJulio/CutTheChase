@@ -7,7 +7,7 @@
   "author": "Zaú Júlio",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./bin && tsc",
     "start": "node ./bin/server.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
   },

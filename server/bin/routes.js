@@ -9,6 +9,9 @@ var upload_1 = __importDefault(require("./config/upload"));
 var UsersController_1 = __importDefault(require("./controllers/UsersController"));
 var routes = express_1.Router();
 var upload = multer_1.default(upload_1.default);
+routes.get("/", function (request, response) {
+    response.sendFile(__dirname + "/public/index.html");
+});
 // Lists
 routes.get("/events", UsersController_1.default.index);
 // Single by id
