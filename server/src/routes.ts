@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 import { Router } from "express";
 import multer from "multer";
 
@@ -7,6 +9,10 @@ import UsersController from "./controllers/UsersController";
 
 const routes = Router();
 const upload = multer(uploadConfig);
+
+routes.get("/", function (request: Request, response: Response) {
+  response.sendFile(__dirname + "/public/index.html");
+});
 
 // Lists
 routes.get("/events", UsersController.index);
