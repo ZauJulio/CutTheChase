@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import 'firebase/storage';
 require("dotenv").config();
 
 firebase.initializeApp({
@@ -11,4 +12,6 @@ firebase.initializeApp({
   measurementId: process.env.MEASUREMENT_ID,
 });
 
-export default firebase.storage();
+var storage = firebase.storage();
+
+export default storage;

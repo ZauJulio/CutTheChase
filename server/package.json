@@ -7,8 +7,10 @@
   "author": "Zaú Júlio",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./bin && tsc",
-    "start": "node ./bin/server.js",
+    "clean": "tsc --build --clean",
+    "copy-files": "copyfiles -V -u 2 src/public/**/*.{css,html} dist/public/",
+    "build": "yarn clean && tsc --build && yarn copy-files",
+    "start": "node ./dist/server.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
@@ -21,7 +23,6 @@
     "geofire-common": "^5.2.0",
     "multer": "^1.4.2",
     "request": "^2.88.2",
-    "tsc": "^1.20150623.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -31,10 +32,12 @@
     "@types/node": "^14.14.35",
     "@types/request": "^2.48.5",
     "@types/yup": "^0.29.11",
+    "copyfiles": "^2.4.1",
     "dotenv": "^8.2.0",
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
+    "tsc": "^1.20150623.0",
     "typescript": "^4.2.3"
   }
 }

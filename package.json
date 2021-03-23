@@ -1,3 +1,9 @@
 {
+  "name": "cut-the-chase",
+  "version": "1.0.0",
+  "description": "CutTheChase",
+  "repository": "https://github.com/ZauJulio/CutTheChase.git",
+  "author": "Zaú Júlio",
+  "license": "MIT",
   "dependencies": {}
 }
