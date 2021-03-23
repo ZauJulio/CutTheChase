@@ -22,3 +22,5 @@ app.use('/v1/events', events, express.static(path.join(__dirname, '..', 'uploads
 app.use(errorHandler)
 
 app.listen(3333);
+
+module.exports = app
