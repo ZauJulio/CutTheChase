@@ -1,14 +1,15 @@
-import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import React from "react";
 
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
+import Aside from "../components/Aside";
 
-import styles from "../styles/pages/Home.module.scss";
-import { GetServerSideProps } from "next";
 import { SelectableCategory } from "../services/interfaces";
 import { EventsProvider, Location } from "../contexts/EventsContext";
+import styles from "../styles/pages/Home.module.scss";
 
 interface HomeProps {
   location: Location;
@@ -25,6 +26,7 @@ export default function Index(props: HomeProps) {
         <link rel="icon" href="/favicon.svg" />
         <meta name="description" content="Seu mapa de eventos direto ao ponto. Busque e promova diversos tipos de eventos mais próximos de você." />
       </Head>
+      <Aside />
       <EventsProvider location={props.location}>
         <div className={styles.topBarsContainer}>
           <SearchBar />

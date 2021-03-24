@@ -20,6 +20,7 @@ now.json
 .env.test.local
 .env.production.local
 .env
+.env.dec
 
 npm-debug.log*
 yarn-debug.log*

@@ -1,7 +1,8 @@
 import React from "react";
+import { Provider } from 'next-auth/client'
 import "../styles/global.scss";
 import "leaflet/dist/leaflet.css";
-import Aside from "../components/Aside";
+
 import { UserProvider } from "../contexts/UserContext";
 import { GetServerSideProps } from "next";
 import { User } from "../services/interfaces";
@@ -43,10 +44,11 @@ function MyApp({ Component, pageProps}) {
 
   return (
     <div>
-      <UserProvider user={cre.user}>
-        <Aside />
-        <Component {...pageProps} />
-      </UserProvider>
+      <Provider session={pageProps.session}>
+        <UserProvider user={cre.user}>
+          <Component {...pageProps} />
+        </UserProvider>
+      </Provider>
     </div>
   );
 }

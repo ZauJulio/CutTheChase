@@ -25,7 +25,7 @@
     "pages/_document.tsx",
     "pages/index.tsx",
     "pages/_app.tsx"
-, "tsconfig.json", "utils/.ImageTools.ts", "components/.MapMarker"  ],
+, "tsconfig.json", "utils/.ImageTools.ts", "components/.MapMarker", "mixins/facebook.js", "pages/api/auth/signin.jsx", "pages/api/auth/[...nextauth].Js"  ],
   "exclude": [
     "node_modules"
   ]
