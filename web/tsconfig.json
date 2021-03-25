@@ -22,10 +22,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/_document.tsx",
-    "pages/index.tsx",
-    "pages/_app.tsx"
-, "tsconfig.json", "utils/.ImageTools.ts", "components/.MapMarker", "mixins/facebook.js", "pages/api/auth/signin.jsx", "pages/api/auth/[...nextauth].Js"  ],
+    "**/*.jsx",
+    "**/*.js"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -25,7 +25,7 @@ function Aside({ router }) {
       </header>
 
       <div className={styles.sidebarContent}>
-        <Link href="/Login">
+        <Link href="/api/auth/signin">
           <FaUserAlt />
         </Link>
 
