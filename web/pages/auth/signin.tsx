@@ -1,10 +1,12 @@
 import React from "react";
+import Link from "next/link";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { getCsrfToken, getProviders, getSession, providers } from "next-auth/client";
-import { useRouter } from "next/router";
-import Head from "next/head";
 
 import { RiArrowGoBackLine } from "react-icons/ri";
+import { FcCalendar } from "react-icons/fc";
 
 import AuthProviders from "../../components/AuthProviders";
 import styles from "../../styles/pages/Login.module.scss";
@@ -29,6 +31,17 @@ export default function SignIn({ providers, csrfToken }) {
             </button>
           </div>
           <AuthProviders providers={Object.values(providers)} csrfToken={csrfToken} />
+        </div>
+        <div className={styles.rightContainer}>
+          <div className={styles.appBar}>
+            Cut The Chase
+            <Link href="/Landing">
+              <>
+                <FcCalendar />
+              </>
+            </Link>
+          </div>
+          <img src={pathImage}></img>
         </div>
       </div>
     </div>

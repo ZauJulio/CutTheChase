@@ -1,0 +1,98 @@
+.asideContainer {
+  position: fixed;
+  z-index: 10000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 5rem;
+  height: 100vh;
+  background: linear-gradient(180deg, #012840 59.36%, #5a002e 100%);
+
+  svg {
+    cursor: pointer;
+  }
+
+  @media (max-width: 720px) {
+    flex-direction: row;
+    bottom: 0;
+
+    width: 100vw;
+    height: 6rem;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    background: linear-gradient(90deg, #012840 59.36%, #5a002e 100%);
+  }
+  
+  .sideBarHeader {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 720px) {
+      display: none;
+    }
+
+    justify-content: space-between;
+
+    align-items: center;
+    padding: 1rem;
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 3.5rem;
+      height: 3.5rem;
+
+      border-radius: 50%;
+      background: #ffff;
+
+      svg {
+        width: 2.5rem;
+        height: auto;
+      }
+    }
+
+    .sepMenu {
+      height: 11px;
+      width: 5rem;
+
+      margin-top: 20px;
+      background-color: #ffffffed;
+
+      @media (max-width: 720px) {
+        height: 9rem;
+        width: 10px;
+
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .sidebarContent {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    gap: 4rem;
+
+    @media (max-width: 720px) {
+      width: 100%;
+      padding: 2rem;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+    
+    svg {
+      width: 2.5rem;
+      height: auto;
+    }
+  }
+}
