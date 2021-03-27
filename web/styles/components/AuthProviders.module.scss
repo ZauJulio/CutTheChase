@@ -13,8 +13,11 @@
     justify-content: center;
     align-items: center;
   
-    width: 20rem;
-  
+    width: 22rem;
+    padding: 2rem;
+
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.048);
     .entries {
       display: flex;
       flex-direction: column;
@@ -50,15 +53,16 @@
       cursor: pointer;
 
       margin-top: 2rem;
-      background: rgba(255, 255, 255, 0.123);
+      background: rgba(255, 255, 255, 0.120);
       border: 0;
       border-radius: 30px;
       
       width: 20rem;
       height: 3rem;
 
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, background 0.3s;
       &:hover {
+        background: rgba(255, 255, 255, 0.240);
         svg{
           opacity: 1;
         }
