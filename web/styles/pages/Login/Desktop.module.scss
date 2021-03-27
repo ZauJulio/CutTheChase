@@ -1,4 +1,6 @@
 .loginContainer {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   width: 100vw;
@@ -11,9 +13,8 @@
     #922337 360deg
   );
 
-  .leftContainer {
+  .authContainer {
     width: 68vw;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +44,9 @@
       }
     }
   }
-  .rightContainer {
+
+  .descriptionContainer {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -71,7 +74,6 @@
       width: 90%;
       height: 7rem;
 
-      top: 2rem;
       margin-top: 50px;
 
       svg {

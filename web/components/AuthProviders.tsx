@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 import {
@@ -10,9 +10,30 @@ import {
 
 import styles from "../styles/components/AuthProviders.module.scss";
 import { signIn } from "next-auth/client";
+import { Checkbox, withStyles, CheckboxProps } from "@material-ui/core";
 
+const RoseCheckbox = withStyles({
+  root: {
+    color: "#FFFFFF",
+    '&$checked': {
+      color: "#B6495D",
+    },
+  },
+  checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
 const CredentialsForm = ({ provider, csrfToken }) => {
+  const [visibilityPassword, setVisibilityPassword] = useState(false);
+  const [typeInputPassword, setTypeInputPassword] = useState("password");
+
+  useEffect(() => {
+    if (visibilityPassword) {
+      setTypeInputPassword("text");
+    } else {
+      setTypeInputPassword("password");
+    }
+  }, [visibilityPassword]);
+
   return (
     <form
       className={styles.credentialsForm}
@@ -36,10 +57,19 @@ const CredentialsForm = ({ provider, csrfToken }) => {
         </label>
         <label>
           Senha
-          <input name="password" type="text" />
+          <input name="password" type={typeInputPassword} pattern="{8, 16}$" />
         </label>
       </div>
-      <button type="submit">
+      <label className={styles.showPassword}>
+        Exibir senha:
+        <RoseCheckbox
+          checked={visibilityPassword}
+          onChange={() => {
+            setVisibilityPassword(!visibilityPassword);
+          }}
+        />
+      </label>
+      <button type="submit" onClick={() => signIn(provider.id)}>
         <FaArrowCircleRight />
       </button>
     </form>
@@ -79,18 +109,15 @@ const ExternalProviders = ({ providers, className }) => {
   );
 };
 
-export default function AuthProviders({ providers, csrfToken }) {
+export default function AuthProviders({ className, providers, csrfToken }) {
   const credentialsProvider = providers.find(
     (provider) => provider.id === "credentials"
   );
 
   return (
     <div>
-      <div className={styles.authProviders}>
-        <CredentialsForm
-          provider={credentialsProvider}
-          csrfToken={csrfToken}
-        />
+      <div className={`${styles.authProvidersContainer} ${className}`}>
+        <CredentialsForm provider={credentialsProvider} csrfToken={csrfToken} />
         <div className={styles.separator}>
           <div className={styles.barSepacer} />
           Ou

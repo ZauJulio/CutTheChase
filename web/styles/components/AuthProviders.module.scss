@@ -1,46 +1,65 @@
-.authProviders {
+.authProvidersContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
   gap: 5rem;
+
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
 
   .credentialsForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  
-    width: 22rem;
+
+    width: 40%;
     padding: 2rem;
 
     border-radius: 30px;
     background: rgba(255, 255, 255, 0.048);
+
+    @media (max-width: 1280px) {
+      width: 80vw;
+      .entries {
+        label {
+          input {
+            width: 70vw;
+          }
+        }
+      }
+    }
+
     .entries {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-  
+
       gap: 2rem;
-      
+
+      input,
+      label {
+        display: block;
+      }
+
       label {
         text-align: left;
-  
+
         input {
           margin-top: 1rem;
           border-radius: 30px;
           height: 3rem;
-  
+
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  
+
           text-align: end;
           padding-right: 10px;
           padding-left: 10px;
-  
-          width: 20rem;
+
           &:focus {
             background: rgb(230, 247, 255);
             outline: 0 !important;
@@ -48,32 +67,47 @@
         }
       }
     }
-  
+
+    .showPassword {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      width: 100%;
+      gap: 1rem;
+      margin-top: 2rem;
+      label {
+        text-align: left;
+        input {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
     button {
       cursor: pointer;
 
       margin-top: 2rem;
-      background: rgba(255, 255, 255, 0.120);
+      background: rgba(255, 255, 255, 0.12);
       border: 0;
       border-radius: 30px;
-      
+
       width: 20rem;
       height: 3rem;
 
       transition: opacity 0.3s, background 0.3s;
       &:hover {
-        background: rgba(255, 255, 255, 0.240);
-        svg{
+        background: rgba(255, 255, 255, 0.24);
+        svg {
           opacity: 1;
         }
       }
       svg {
         height: 2rem;
         width: 2rem;
-  
+
         color: white;
         opacity: 0.5;
-  
       }
     }
   }
@@ -85,10 +119,15 @@
     align-items: center;
 
     gap: 2rem;
+
     .barSepacer {
+      @media (max-width: 1280px) {
+        width: 80vw !important;
+        background: rgba(255, 255, 255, 0.6);
+      }
       height: 2px;
       width: 4rem;
-      background: white;
+      background: rgba(255, 255, 255, 0.6);
     }
   }
 
@@ -96,6 +135,13 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    @media (max-width: 1280px) {
+      width: 80vw;
+      .provider {
+        width: 80vw !important;
+      }
+    }
 
     .provider {
       position: relative;
@@ -116,7 +162,7 @@
       outline: 0;
 
       text-align: left;
-      
+
       transition: background 0.3s;
       &:hover {
         background: rgb(167, 204, 219);
@@ -132,4 +178,3 @@
     }
   }
 }
-

@@ -5,13 +5,11 @@ import env from "../../../utils/env";
 export default NextAuth({
   providers: [
     Providers.Credentials({
-      name: "Email",
+      name: "Credentials",
       credentials: {
-        username: {
-          label: "Email",
-          type: "text",
-          placeholder: "user@emgail.com",
-        },
+        firstName: { label: "firstName", type: "text" },
+        lastName: { label: "lastName", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
