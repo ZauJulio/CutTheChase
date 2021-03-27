@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-
-let secureEnv = require("secure-env");
-global.env = secureEnv({ secret: process.env.ENV_SECRET });
+import env from "../../../utils/env";
 
 export default NextAuth({
   providers: [
