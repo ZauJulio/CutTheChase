@@ -53,8 +53,8 @@ function Map() {
           url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
         />
 
-        {events.map((event: Event) => (
-          <MapMarker event={event} setUseScroll={setUseScroll} />
+        {events.map((event: Event, index) => (
+          <MapMarker key={index} event={event} setUseScroll={setUseScroll} />
         ))}
       </MapContainer>
     </div>

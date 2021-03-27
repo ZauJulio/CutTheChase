@@ -18,7 +18,9 @@ function Aside({ router }) {
       <header className={styles.sideBarHeader}>
         <div className={styles.logo}>
           <Link href="/Landing">
-            <FcCalendar />
+            <div>
+              <FcCalendar />
+            </div>
           </Link>
         </div>
         <div className={styles.sepMenu} />
@@ -26,34 +28,46 @@ function Aside({ router }) {
 
       <div className={styles.sidebarContent}>
         <Link href="/api/auth/signin">
-          <FaUserAlt />
+          <div>
+            <FaUserAlt />
+          </div>
         </Link>
 
         {router.pathname !== "/" && (
           <Link href="/">
-            <FaMapMarkedAlt />
+            <div>
+              <FaMapMarkedAlt />
+            </div>
           </Link>
         )}
 
         {role === "admin" && (
           <Link href="/Users">
-            <FaUsersCog />
+            <div>
+              <FaUsersCog />
+            </div>
           </Link>
         )}
 
         {(role === "promotor" || role === "admin") && (
           <Link href="/Events">
-            <BsCalendarFill />
+            <div>
+              <BsCalendarFill />
+            </div>
           </Link>
         )}
 
         <Link href="/preferences">
-          <BsGearFill />
+          <div>
+            <BsGearFill />
+          </div>
         </Link>
 
         {logged === true && (
           <Link href="/">
-            <RiLogoutCircleLine />
+            <div>
+              <RiLogoutCircleLine />
+            </div>
           </Link>
         )}
       </div>
