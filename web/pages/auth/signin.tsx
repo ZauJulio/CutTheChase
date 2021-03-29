@@ -1,15 +1,22 @@
 import React from "react";
 import Head from "next/head";
-
+import { Provider } from "next-auth/providers";
 import { getCsrfToken, getProviders, getSession } from "next-auth/client";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-import SigninDesktop from "../../components/Signin/Desktop";
-import SigninMobile from "../../components/Signin/Mobile";
 import useWindowSize from "../../utils/useWindowSize";
 
-export default function SignIn({ providers, csrfToken }) {
+import Mobile from "./Signin/_Mobile";
+import Desktop from "./Signin/_Desktop";
+
+interface SigninProps {
+  providers: Provider[];
+  csrfToken: string;
+}
+
+export default function SigninProps(props: SigninProps) {
   const windowSize = useWindowSize();
-  
+
   return (
     <>
       <Head>
@@ -18,15 +25,23 @@ export default function SignIn({ providers, csrfToken }) {
         <meta name="description" content="Login e Cadastro." />
       </Head>
       {windowSize.width > 1280 ? (
-        <SigninDesktop providers={providers} csrfToken={csrfToken} />
+        <Desktop
+          providers={Object.values(props.providers)}
+          csrfToken={props.csrfToken}
+        />
       ) : (
-        <SigninMobile providers={providers} csrfToken={csrfToken} />
+        <Mobile
+          providers={Object.values(props.providers)}
+          csrfToken={props.csrfToken}
+        />
       )}
     </>
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
   return {
     props: {
       session: await getSession(ctx),

@@ -12,11 +12,11 @@
   height: 100vh;
 
   background: conic-gradient(
-    from 16.59deg at 85.48% 108.98%,
-    #1a2a7d -127.54deg,
-    #922337 209.96deg,
-    #1a2a7d 232.46deg,
-    #922337 569.96deg
+    from 17deg at 85% 100%,
+    #1a2a7d -130deg,
+    #922337 210deg,
+    #1a2a7d 235deg,
+    #922337 570deg
   );
 
   .appBar {
@@ -34,9 +34,7 @@
     padding-right: 1rem;
 
     font-family: Big Shoulders Text;
-    font-style: normal;
-    font-weight: normal;
-    font-size: calc(3vw + 1rem);
+    font-size: calc(4vw + 1rem);
 
     color: var(--primary-color);
 
@@ -58,47 +56,31 @@
 
     top: 2rem;
     left: 2rem;
-
-    cursor: pointer;
-    button {
-      background: transparent;
-      outline: 0;
-      border: 0;
-
-      svg {
-        background: white;
-        color: #922337;
-        font-size: 3rem;
-        border-radius: 30px;
-        padding: 10px;
-
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      }
-    }
   }
 
-  .authContainer {
-    width: 68vw;
+  .authProviders {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
+    width: 68vw;
     @media (max-width: 1280px) {
-      height: 100vw;
-      margin-top: 35rem;
-      margin-bottom: 50rem;
+      // appBar.height + appBar.margin-top + extra-margin-top
+      margin-top: calc(7rem + 40px + 10rem);
+      margin-bottom: 30rem;
     }
   }
 
   .randomLoginImage {
     display: flex;
+
     width: 90vw;
     height: auto;
-    
     margin-top: -25rem;
     padding: 0;
-    border: 0;
 
+    border: 0;
+    
     -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
     filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
   }
