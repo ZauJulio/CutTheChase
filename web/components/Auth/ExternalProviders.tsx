@@ -35,8 +35,8 @@ export default function ExternalProviders(props: ExternalProvidersProps) {
 
   return (
     <div className={`${styles.externalProviders} ${props.className}`}>
-      {props.providers.map((provider: Provider) => (
-        <ExternalProvider name={provider.name} id={provider.id}>
+      {props.providers.map((provider: Provider, index) => (
+        <ExternalProvider key={index} name={provider.name} id={provider.id}>
           <IconProvider id={provider.id}/>
         </ExternalProvider>
       ))}

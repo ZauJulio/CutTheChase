@@ -6,16 +6,64 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 import useWindowSize from "../../utils/useWindowSize";
 
-import Mobile from "./Signin/_Mobile";
-import Desktop from "./Signin/_Desktop";
+import AuthProviders from "../../components/Auth/AuthProviders";
+import ReturnPageButton from "../../components/ReturnButton";
+import HomeButton from "../../components/HomeButton";
+
+import stylesDesktop from "../../styles/pages/Auth/Signin/Desktop.module.scss";
+import stylesMobile from "../../styles/pages/Auth/Signin/Mobile.module.scss";
 
 interface SigninProps {
   providers: Provider[];
   csrfToken: string;
 }
 
-export default function SigninProps(props: SigninProps) {
+interface PageProps {
+  providers: Provider[];
+  csrfToken: string;
+  pathImg: string;
+}
+
+const Mobile = (props: PageProps) => {
+  return (
+    <div className={stylesMobile.loginContainer}>
+      <div className={stylesMobile.appBar}>
+        Cut The Chase
+        <HomeButton />
+      </div>
+      <ReturnPageButton className={stylesMobile.pageControl} />
+      <AuthProviders
+        className={stylesMobile.authProviders}
+        providers={Object.values(props.providers)}
+        csrfToken={props.csrfToken}
+      />
+      <img className={stylesMobile.randomLoginImage} src={props.pathImg} />
+    </div>
+  );
+};
+
+const Desktop = (props: PageProps) => {
+  return (
+    <div className={stylesDesktop.loginContainer}>
+      <ReturnPageButton className={stylesDesktop.pageControl} />
+      <AuthProviders
+        className={stylesDesktop.authProviders}
+        providers={Object.values(props.providers)}
+        csrfToken={props.csrfToken}
+      />
+      <div className={stylesDesktop.appBar}>
+        Cut The Chase
+        <HomeButton />
+      </div>
+      <img className={stylesDesktop.randomLoginImage} src={props.pathImg} />
+    </div>
+  );
+};
+
+export default function Signin(props: SigninProps) {
   const windowSize = useWindowSize();
+  const randomIndex = Math.floor(Math.random() * 11);
+  const pathImage = `../login_images/${randomIndex}.svg`;
 
   return (
     <>
@@ -28,11 +76,13 @@ export default function SigninProps(props: SigninProps) {
         <Desktop
           providers={Object.values(props.providers)}
           csrfToken={props.csrfToken}
+          pathImg={pathImage}
         />
       ) : (
         <Mobile
           providers={Object.values(props.providers)}
           csrfToken={props.csrfToken}
+          pathImg={pathImage}
         />
       )}
     </>
