@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaDiscord, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
 
 import ExternalProvider from "./ProviderButton";
-import styles from "../../styles/components/Auth/ExternalProviders.module.scss";
+import styles from "../../../styles/components/Auth/ExternalProviders.module.scss";
 import { IconType } from "react-icons";
 
 interface ExternalProvidersProps {

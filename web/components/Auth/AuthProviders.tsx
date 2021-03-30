@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Provider } from "next-auth/providers";
 
-import CredentialsForm from "./CredentialsForm";
-import ExternalProviders from "./ExternalProviders";
+import CredentialsForm from "./Providers/CredentialsForm";
+import ExternalProviders from "./Providers/ExternalProviders";
 
 import styles from "../../styles/components/Auth/AuthProviders.module.scss";
 

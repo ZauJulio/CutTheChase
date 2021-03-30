@@ -1,7 +1,7 @@
 import React from "react";
 import { signIn } from "next-auth/client";
 
-import styles from "../../styles/components/Auth/ProviderButton.module.scss";
+import styles from "../../../styles/components/Auth/ProviderButton.module.scss";
 
 interface ExternalProviderProps {
   className?: string;

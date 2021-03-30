@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { Provider } from "next-auth/providers";
 import { getCsrfToken, getProviders, getSession } from "next-auth/client";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
@@ -37,7 +38,15 @@ const Mobile = (props: PageProps) => {
         providers={Object.values(props.providers)}
         csrfToken={props.csrfToken}
       />
-      <img className={stylesMobile.randomLoginImage} src={props.pathImg} />
+      <div className={stylesMobile.randomImageContainer}>
+        <Image
+          className={stylesMobile.randomLoginImage}
+          src={props.pathImg}
+          alt=""
+          width={500}
+          height={500}
+        />
+      </div>
     </div>
   );
 };
@@ -55,7 +64,14 @@ const Desktop = (props: PageProps) => {
         Cut The Chase
         <HomeButton />
       </div>
-      <img className={stylesDesktop.randomLoginImage} src={props.pathImg} />
+      <div className={stylesDesktop.randomImageContainer}>
+        <Image
+          className={stylesDesktop.randomLoginImage}
+          src={props.pathImg}
+          alt="Picture of the author"
+          layout="fill"
+        />
+      </div>
     </div>
   );
 };
@@ -63,7 +79,7 @@ const Desktop = (props: PageProps) => {
 export default function Signin(props: SigninProps) {
   const windowSize = useWindowSize();
   const randomIndex = Math.floor(Math.random() * 11);
-  const pathImage = `../login_images/${randomIndex}.svg`;
+  const pathImage = `/login_images/${randomIndex}.svg`;
 
   return (
     <>

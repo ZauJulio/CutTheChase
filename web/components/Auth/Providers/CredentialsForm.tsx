@@ -3,9 +3,9 @@ import { signIn } from "next-auth/client";
 import { Provider } from "next-auth/providers";
 
 import { FaArrowCircleRight } from "react-icons/fa";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 
-import styles from "../../styles/components/Auth/CredentialsForm.module.scss";
+import styles from "../../../styles/components/Auth/CredentialsForm.module.scss";
 import Link from "next/link";
 
 interface CredentialsFormProps {
@@ -35,8 +35,17 @@ export default function CredentialsForm(props: CredentialsFormProps) {
           setNewUser(!newUser);
         }}
       >
-        <AiFillPlusCircle />
-        Primeira vez aqui ?{newUser ? " R: Não" : ""}
+        {newUser ? (
+          <>
+            <AiFillCloseCircle color="red"/>
+            Já tenho acesso !
+          </>
+        ) : (
+          <>
+            <AiFillPlusCircle color="#3BA540"/>
+            Primeira vez aqui ?
+          </>
+        )}
       </button>
     );
   };

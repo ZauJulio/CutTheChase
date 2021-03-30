@@ -50,23 +50,26 @@
 
     margin-top: 50px;
 
-    svg {
+    img {
+      height: 7rem;
+      width: 4.5rem;
       -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
       filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
     }
   }
 
-  .randomLoginImage {
+  .randomImageContainer{
     position: absolute;
-
     display: flex;
-    width: 28vw;
-    height: auto;
 
     right: 1.5rem;
     bottom: 1rem;
+    width: 30vw;
+    height: 50vh;
 
-    -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
-    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+    .randomLoginImage {
+      -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+      filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+    }
   }
 }
