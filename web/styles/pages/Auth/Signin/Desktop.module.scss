@@ -6,10 +6,15 @@
   width: 100vw;
   height: 100vh;
 
-  background: conic-gradient(
+  background: linear-gradient(
+    90deg,
+    rgba(0, 166, 255, 0) 66%,
+    rgba(0, 0, 0, 0.096) 68%,
+    rgba(255, 18, 0, 0) 68%
+  ), conic-gradient(
     from 0deg at 68% 100%,
-    #922337 0deg,
-    #293577 360deg,
+    #b62741 0deg,
+    #253697 360deg,
     #922337 360deg
   );
 
@@ -24,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     height: 100%;
     width: 68vw;
   }
@@ -58,7 +63,7 @@
     }
   }
 
-  .randomImageContainer{
+  .randomImageContainer {
     position: absolute;
     display: flex;
 

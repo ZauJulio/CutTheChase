@@ -1,26 +1,34 @@
-import { Category } from "./Event";
-
-export type Favorite = {
-  id: number;
-  event: number;
+export interface Preferences {
+  favcategories: string[];
 }
 
-export type Role = {
-  id: number;
+export interface UserProfile {
   name: string;
+  preferences: Preferences;
+  role: string;
+  favorites: string[];
 }
 
-export type Preferences = {
-  id: number;
-  favcategories: Category[];
-}
-
-export type User = {
-  id: number;
-  name: string;
+export interface UserCredentials {
+  _id?: string;
   email: string;
   password: string;
-  preferences: Preferences;
-  role: Role;
-  favorites: Favorite[];
+}
+
+export interface User {
+  cred: UserCredentials;
+  profile: UserProfile;
+}
+
+export function createUserProfile(name: string): UserProfile {
+  const profile: UserProfile = {
+    name,
+    role: "user",
+    favorites: [""],
+    preferences: {
+      favcategories: [""],
+    },
+  };
+
+  return profile;
 }

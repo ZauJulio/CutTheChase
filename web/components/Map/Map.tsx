@@ -50,7 +50,7 @@ function Map() {
         <ChangeView useScrollWheelZoom={useScroll} />
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-          url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=R5r8yv38JwRrZl7m6DHJ"
+          url={`https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${process.env.MAPBOX_SECRET}`}
         />
 
         {events.map((event: Event, index) => (

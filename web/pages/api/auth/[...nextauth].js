@@ -1,30 +1,38 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import env from "../../../utils/env";
+import axios from "axios";
 
 export default NextAuth({
   providers: [
     Providers.Credentials({
       name: "Credentials",
       credentials: {
-        firstName: { label: "firstName", type: "text" },
-        lastName: { label: "lastName", type: "text" },
-        email: { label: "Email", type: "text" },
-        password: { label: "Senha", type: "password" },
+        name: { label: "name", type: "text" },
+        email: { label: "email", type: "text" },
+        password: { label: "senha", type: "password" },
       },
-      async authorize(credentials) {
-        const user = (credentials) => {
-          // You need to provide your own logic here that takes the credentials
-          // submitted and returns either a object representing a user or value
-          // that is false/null if the credentials are invalid.
-          // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-          console.log(credentials);
-          return null;
-        };
-        if (user) {
-          return user;
-        } else {
-          return null;
+      authorize: async (credentials) => {
+        try {
+          const user = await axios.post(
+            `${process.env.CREDENTIALS_AUTH_URL}/login`,
+            {
+              name: credentials.name,
+              email: credentials.email,
+              password: credentials.password,
+            },
+
+            { headers: { accept: "*/*", "Content-Type": "application/json" } }
+          );
+
+          user.data.sessionType = "credentials";
+
+          if (user) {
+            return { status: "success", data: user.data };
+          }
+        } catch (e) {
+          const errorMessage = e.response.data.message;
+          throw new Error(errorMessage + "&email=" + credentials.email);
         }
       },
     }),
@@ -45,16 +53,39 @@ export default NextAuth({
       clientSecret: env.TWITTER_CLIENT_SECRET,
     }),
   ],
-  database: global.env.DATABASE_URL,
-  secret: global.env.SECRET,
+  callbacks: {
+    async session(session, token) {
+      if (!sessionType === "credentials") {
+        const userProfile = await axios.post(
+          `${process.env.CREDENTIALS_AUTH_URL}/loginExternal`,
+          {
+            id: token.id,
+            email: token.email,
+          },
+
+          { headers: { accept: "*/*", "Content-Type": "application/json" } }
+        );
+
+        console.log(token, userProfile);
+      }
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
+  database: {
+    type: "mongodb",
+    useNewUrlParser: true,
+    url: process.env.MONGODB_URL,
+    ssl: true,
+    useUnifiedTopology: true,
+    authSource: "admin",
+  },
+  secret: process.env.SECRET,
   session: {
     jwt: true,
   },
-  jwt: {},
   pages: {
     signIn: "/auth/signin",
   },
-  callbacks: {},
-  events: {},
   debug: false,
 });

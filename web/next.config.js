@@ -2,6 +2,14 @@ const path = require("path");
 const withImages = require("next-images");
 
 module.exports = withImages({
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  env: {
+    JWT_SECRET: process.env.JWT_SECRET,
+    MAPBOX_SECRET: process.env.MAPBOX_SECRET,
+    CREDENTIALS_AUTH_URL: process.env.CREDENTIALS_AUTH_URL,
+  },
   ignoreTypes: ["svg"],
   webpack(config, options) {
     return config;

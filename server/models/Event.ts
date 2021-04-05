@@ -12,11 +12,6 @@ export type Image = {
   url: string;
 }
 
-export type Category = {
-  id: number;
-  name: string;
-}
-
 export type Assessment = {
   id: number;
   user: string;
@@ -43,5 +38,5 @@ export type Event = {
   adress: Adress;
   assessments: Assessment[];
   images: Image[];
-  categorys: Category[];
+  categorys: string[];
 }

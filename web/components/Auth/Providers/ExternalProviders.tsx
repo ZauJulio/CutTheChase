@@ -23,21 +23,19 @@ export default function ExternalProviders(props: ExternalProvidersProps) {
 
   function IconProvider({ id }) {
     const iconOfProvider = icons.find((icon) => icon.id === id);
+
+    if (iconOfProvider === undefined) return <div />;
+
     const Icon = iconOfProvider.icon;
     const color = iconOfProvider.color;
-    
-    if (Icon !== undefined) {
-      return <Icon color={color} />;
-    }
-
-    return <div />;
+    return <Icon color={color} />;
   }
 
   return (
     <div className={`${styles.externalProviders} ${props.className}`}>
       {props.providers.map((provider: Provider, index) => (
         <ExternalProvider key={index} name={provider.name} id={provider.id}>
-          <IconProvider id={provider.id}/>
+          <IconProvider id={provider.id} />
         </ExternalProvider>
       ))}
     </div>

@@ -8,6 +8,14 @@ import {
   Event,
 } from "./interfaces";
 
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://192.168.2.107:3333",
+});
+
+export default api;
+
 var _adress: Adress = {
   id: 1,
   lat: -6.4572625,

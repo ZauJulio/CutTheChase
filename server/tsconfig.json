@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/api/list.js"  ],
+, "pages/api/list.js", "../web/services/mongodb.ts", "database/schema/UserSchema.js"  ],
   "exclude": [
     "node_modules"
   ]

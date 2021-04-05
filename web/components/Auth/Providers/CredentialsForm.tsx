@@ -3,10 +3,11 @@ import { signIn } from "next-auth/client";
 import { Provider } from "next-auth/providers";
 
 import { FaArrowCircleRight } from "react-icons/fa";
-import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
+import { AiFillHeart, AiFillPlusCircle } from "react-icons/ai";
 
 import styles from "../../../styles/components/Auth/CredentialsForm.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface CredentialsFormProps {
   provider: Provider;
@@ -18,6 +19,22 @@ export default function CredentialsForm(props: CredentialsFormProps) {
   const [typeInputPassword, setTypeInputPassword] = useState("password");
   const [newUser, setNewUser] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState<string | string[]>("");
+  const [password, setPassword] = useState("");
+
+  const [isLoginStarted, setIsLoginStarted] = useState(false);
+  const [loginError, setLoginError] = useState<string | string[]>("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.error) {
+      setLoginError(router.query.error);
+      setEmail(router.query.email);
+    }
+  }, [router]);
+
   useEffect(() => {
     if (visibilityPassword) {
       setTypeInputPassword("text");
@@ -25,6 +42,17 @@ export default function CredentialsForm(props: CredentialsFormProps) {
       setTypeInputPassword("password");
     }
   }, [visibilityPassword]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsLoginStarted(true);
+    signIn("credentials", {
+      name,
+      email,
+      password,
+      callbackUrl: `${window.location.origin}/`,
+    });
+  };
 
   const NewUserButton = ({ className }) => {
     return (
@@ -37,12 +65,12 @@ export default function CredentialsForm(props: CredentialsFormProps) {
       >
         {newUser ? (
           <>
-            <AiFillCloseCircle color="red"/>
-            Já tenho acesso !
+            <AiFillHeart color="red" />
+            {"Já tenho acesso : )"}
           </>
         ) : (
           <>
-            <AiFillPlusCircle color="#3BA540"/>
+            <AiFillPlusCircle color="#3BA540" />
             Primeira vez aqui ?
           </>
         )}
@@ -54,7 +82,7 @@ export default function CredentialsForm(props: CredentialsFormProps) {
     if (!newUser) {
       return (
         <div className={className}>
-          <Link href="">esqueci minha senha</Link>
+          <Link href="/">esqueci minha senha</Link>
         </div>
       );
     }
@@ -63,11 +91,7 @@ export default function CredentialsForm(props: CredentialsFormProps) {
 
   const SubmitButton = ({ className }) => {
     return (
-      <button
-        className={className}
-        type="submit"
-        onClick={() => signIn(props.provider.id)}
-      >
+      <button className={className} type="submit" disabled={isLoginStarted}>
         <FaArrowCircleRight />
       </button>
     );
@@ -91,11 +115,7 @@ export default function CredentialsForm(props: CredentialsFormProps) {
   return (
     <div className={styles.credentialsProvider}>
       <NewUserButton className={styles.newUser} />
-      <form
-        className={styles.credentialsForm}
-        method="post"
-        action="/api/auth/callback/credentials"
-      >
+      <form className={styles.credentialsForm} onSubmit={(e) => handleLogin(e)}>
         <div className={styles.entries}>
           <input
             name="csrfToken"
@@ -104,28 +124,30 @@ export default function CredentialsForm(props: CredentialsFormProps) {
           />
           {newUser && (
             <>
-              <label>
-                Nome
-                <input name="firstname" type="text" />
-              </label>
-              <label>
-                Sobrenome
-                <input name="lastname" type="text" />
-              </label>
+              <label htmlFor="name">Nome</label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </>
           )}
-          <label>
-            Email
-            <input name="email" type="text" />
-          </label>
-          <label>
-            Senha
-            <input
-              name="password"
-              type={typeInputPassword}
-              pattern="{8, 16}$"
-            />
-          </label>
+          <label htmlFor="loginEmail">Email</label>
+          <input
+            id="loginEmail"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {/* <span className={styles.error}>{loginError}</span> */}
+          <label htmlFor="loginPassword">Senha</label>
+          <input
+            id="loginPassword"
+            type={typeInputPassword}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className={styles.preSubmit}>
           <ShowPassword className={styles.showPassword} />

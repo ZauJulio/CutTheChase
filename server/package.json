@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3333",
     "build": "next build",
     "start": "next start"
   },
@@ -15,6 +15,7 @@
     "firebase": "^8.3.1",
     "firebase-admin": "^9.5.0",
     "geofire-common": "^5.2.0",
+    "mongoose": "^5.12.3",
     "multer": "^1.4.2",
     "next": "10.0.9",
     "next-connect": "^0.10.1",
