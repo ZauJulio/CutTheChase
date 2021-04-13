@@ -1,81 +1,70 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import Cookies from "js-cookie";
-import { Favorite, Preferences, Role } from "../services/interfaces";
-import { login } from "../services/api";
-import { User } from "../services/interfaces";
-import { EventsContext } from "./EventsContext";
+// import React, {
+//   createContext,
+//   ReactNode,
+//   useContext,
+//   useEffect,
+//   useState,
+// } from "react";
+// import Cookies from "js-cookie";
+// import { Favorite, Preferences, Role } from "../services/interfaces";
+// import { login } from "../services/api";
+// import { EventsContext } from "./EventsContext";
+// import { useSession } from "next-auth/client";
+// import { User } from "next-auth";
 
-interface UserContextData {
-  name: string;
-  role: Role;
-  preferences: Preferences;
-  favorites: Favorite[];
-  login: Function;
-}
+// export type WithAdditionalParams<T extends Record<string, any>> = T & Record<string, unknown>;
 
-interface UserProviderProps {
-  children: ReactNode;
-  user: User;
-}
+// export interface Profile {
+//   preferences: Preferences;
+//   role: string;
+//   favorites: string[];
+// }
 
-export const UserContext = createContext({} as UserContextData);
+// export interface UserFully extends User {
+//   profile: Profile;
+// }
 
-export function UserProvider({ children, ...rest }: UserProviderProps) {
-  const [user, setUser] = useState<User>(rest.user);
-  const { categories, updateCategories } = useContext(EventsContext);
+// interface UserProviderProps {
+//   children: ReactNode;
+// }
 
-  function loginUser(email: string, password?: string) {
-    const { status, user } = login(email, password);
+// export interface UserContextData extends UserFully {}
 
-    if (status === 200) {
-      setUser(user);
-      localStorage.setItem(
-        "CutTheChase",
-        JSON.stringify({
-          user: user,
-          timestamp: Date.now(),
-        })
-      );
-    }
-  }
+// export const UserContext = createContext({} as UserContextData);
 
-  useEffect(() => {
-    const credentials = JSON.parse(localStorage.getItem("CutTheChase"));
+// export function UserProvider({ children }: UserProviderProps) {
+//   const { categories, updateCategories } = useContext(EventsContext);
 
-    if (credentials !== null) {
-      loginUser(credentials.user.email, credentials.user.password);
-    } else {
-      console.log("User not detected")
-    }
-  }, []);
+//   const [session, loading] = useSession();
+//   const [user, setUser] = useState<WithAdditionalParams<User>>(session.user);
+//   const [profile, updateProfile] = useState<WithAdditionalParams<Profile>>(
+//     session.user.profile
+//   );
 
-  useEffect(() => {
-    let selectedCategories = [];
+//   console.log(session);
+//   session.user;
 
-    for (var i in categories) {
-      if (categories[i].name === user.preferences.favcategories[i].name) {
-        selectedCategories.push(categories[i]);
-      }
-    }
-  }, [user]);
+//   useEffect(() => {
+//     let selectedCategories = [];
 
-  return (
-    <UserContext.Provider
-      value={{
-        name: user.name,
-        role: user.role,
-        preferences: user.preferences,
-        favorites: user.favorites,
-        login: loginUser,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
-  );
-}
+//     for (var i in categories) {
+//       if (categories[i].name === profile.preferences.favcategories[i].name) {
+//         selectedCategories.push(categories[i]);
+//       }
+//     }
+//   }, [user]);
+
+//   return (
+//     <UserContext.Provider
+//       value={{
+//         name: user.name,
+//         role: user.role,
+//         preferences: user.preferences,
+//         favorites: user.favorites,
+//         login: loginUser,
+//       }}
+//     >
+//       {children}
+//     </UserContext.Provider>
+//   );
+// }

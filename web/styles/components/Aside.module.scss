@@ -1,14 +1,40 @@
 .asideContainer {
-  position: fixed;
+  position: absolute;
   z-index: 10000;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  width: 5rem;
-  height: 100vh;
-  background: linear-gradient(180deg, #012840 75%, #5a002f 100%);
+  width: 5.5rem;
+
+  transform: translateY(20%);
+
+  display: flex;
+  align-items: center;
+
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  border-radius: 0 30px 30px 0;
+
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.25);
+
+  background: linear-gradient(-45deg, #830546, #70013a, #023352, #03588d);
+  background-size: 350% 100%;
+  animation: gradient 25s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 
   svg {
     cursor: pointer;
@@ -19,14 +45,15 @@
     bottom: 0;
 
     width: 100vw;
-    height: 6rem;
+    height: 8rem;
 
     overflow-y: hidden;
     overflow-x: hidden;
 
     background: linear-gradient(90deg, #012840 59.36%, #5a002e 100%);
+    border-radius: 30px 30px 0 0;
   }
-  
+
   .sideBarHeader {
     display: flex;
     flex-direction: column;
@@ -38,7 +65,6 @@
     justify-content: space-between;
 
     align-items: center;
-    padding: 1rem;
 
     .logo {
       display: flex;
@@ -54,15 +80,19 @@
       svg {
         width: 2.5rem;
         height: auto;
+        -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+        filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
       }
     }
 
     .sepMenu {
-      height: 11px;
-      width: 5rem;
+      height: 8px;
+      width: 5.5rem;
 
       margin-top: 20px;
-      background-color: #ffffffed;
+      margin-bottom: 25px;
+
+      background-color: #ffffff;
 
       @media (max-width: 720px) {
         height: 9rem;
@@ -80,7 +110,6 @@
     justify-content: center;
     align-items: center;
 
-    height: 100vh;
     gap: 4rem;
 
     @media (max-width: 720px) {
@@ -89,7 +118,13 @@
       justify-content: space-between;
       flex-direction: row;
     }
-    
+
+    .userImage {
+      border-radius: 50%;
+      width: 2.5rem;
+      height: auto;
+    }
+
     svg {
       width: 2.5rem;
       height: auto;

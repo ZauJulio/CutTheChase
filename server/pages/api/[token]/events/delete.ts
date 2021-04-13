@@ -1,4 +1,4 @@
-import EventsController from "../../../../controllers/EventsController";
+import EventsController from "../../../../controllers/Auth/EventsController";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function _delete(req: NextApiRequest, res:NextApiResponse) {

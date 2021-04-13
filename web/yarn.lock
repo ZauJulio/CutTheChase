@@ -46,6 +46,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@devil7softwares/react-drifter-stars@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@devil7softwares/react-drifter-stars/-/react-drifter-stars-1.0.3.tgz#74166a6e505a67593f235bab3fbb576dbff27899"
+  integrity sha512-uqBJlddCYSOooMeopXKMmA/GkI0Nf3Jn2kHoVdzY+7suvoBaQSlzrxrxwx4zQzetIJaX5a5GX3BnP0tNhxyHow==
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"

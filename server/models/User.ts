@@ -3,7 +3,6 @@ export interface Preferences {
 }
 
 export interface UserProfile {
-  name: string;
   preferences: Preferences;
   role: string;
   favorites: string[];
@@ -20,15 +19,12 @@ export interface User {
   profile: UserProfile;
 }
 
-export function createUserProfile(name: string): UserProfile {
-  const profile: UserProfile = {
-    name,
+export function createEmptyUserProfile(): UserProfile {
+  return {
     role: "user",
     favorites: [""],
     preferences: {
       favcategories: [""],
     },
   };
-
-  return profile;
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { withRouter } from "next/router";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 import { FaMapMarkedAlt, FaUsersCog, FaUserAlt } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
@@ -10,7 +12,7 @@ import { BsCalendarFill, BsGearFill } from "react-icons/bs";
 import styles from "../styles/components/Aside.module.scss";
 
 function Aside({ router }) {
-  const logged = true;
+  const [session] = useSession();
   let role = "admin";
 
   return (
@@ -26,12 +28,18 @@ function Aside({ router }) {
         <div className={styles.sepMenu} />
       </header>
 
-      <div className={styles.sidebarContent}>
-        <Link href="/api/auth/signin">
-          <div>
+      <div className={styles.sidebarContent} onClick={() => signIn()}>
+        <div>
+          {session && session.user.image ? (
+            <img
+              className={styles.userImage}
+              src={session.user.image}
+              alt="user"
+            />
+          ) : (
             <FaUserAlt />
-          </div>
-        </Link>
+          )}
+        </div>
 
         {router.pathname !== "/" && (
           <Link href="/">
@@ -63,9 +71,9 @@ function Aside({ router }) {
           </div>
         </Link>
 
-        {logged === true && (
+        {session && (
           <Link href="/">
-            <div>
+            <div onClick={() => signOut()}>
               <RiLogoutCircleLine />
             </div>
           </Link>

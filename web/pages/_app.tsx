@@ -6,8 +6,8 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider
       options={{
-        clientMaxAge: 0,
-        keepAlive: 0,
+        clientMaxAge: 60,
+        keepAlive: Number(process.env.EXPIRATION_TIME_SEC),
       }}
       session={pageProps.session}
     >

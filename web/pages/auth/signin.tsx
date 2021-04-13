@@ -5,6 +5,8 @@ import { Provider } from "next-auth/providers";
 import { getCsrfToken, getProviders, getSession } from "next-auth/client";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
+import DrifterStars from "@devil7softwares/react-drifter-stars";
+
 import useWindowSize from "../../utils/useWindowSize";
 
 import AuthProviders from "../../components/Auth/AuthProviders";
@@ -28,6 +30,10 @@ interface PageProps {
 const Mobile = (props: PageProps) => {
   return (
     <div className={stylesMobile.loginContainer}>
+      <DrifterStars
+        className={stylesMobile.stars}
+        motion={{ enabled: false }}
+      />
       <div className={stylesMobile.appBar}>
         Cut The Chase
         <HomeButton />
@@ -54,6 +60,10 @@ const Mobile = (props: PageProps) => {
 const Desktop = (props: PageProps) => {
   return (
     <div className={stylesDesktop.loginContainer}>
+      <DrifterStars
+        className={stylesDesktop.stars}
+        motion={{ enabled: false }}
+      />
       <ReturnPageButton className={stylesDesktop.pageControl} />
       <AuthProviders
         className={stylesDesktop.authProviders}

@@ -3,7 +3,7 @@ import { BsArrowReturnLeft, BsFillHeartFill, BsHeart } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
 
 import { EventsContext } from "../../contexts/EventsContext";
-import { UserContext } from "../../contexts/UserContext";
+// import { UserContext } from "../../contexts/UserContext";
 import { getFormatedData as formatDate } from "../../utils/DateTools";
 import { Event } from "../../services/interfaces";
 
@@ -19,7 +19,8 @@ interface EventContainerProps {
 
 export function EventContainer({ event, callback }: EventContainerProps) {
   const { location } = useContext(EventsContext);
-  const { role } = useContext(UserContext);
+  // const { role } = useContext(UserContext);
+  const role = "admin";
 
   const [showModal, setShowModal] = useState(true);
   const [favorite, setFavorite] = useState<boolean>(true);

@@ -1,3 +1,5 @@
+@import "@devil7softwares/react-drifter-stars/dist/styles.css";
+
 .loginContainer {
   position: relative;
 
@@ -7,17 +9,23 @@
   height: 100vh;
 
   background: linear-gradient(
-    90deg,
-    rgba(0, 166, 255, 0) 66%,
-    rgba(0, 0, 0, 0.096) 68%,
-    rgba(255, 18, 0, 0) 68%
-  ), conic-gradient(
-    from 0deg at 68% 100%,
-    #b62741 0deg,
-    #253697 360deg,
-    #922337 360deg
-  );
+      90deg,
+      rgba(0, 166, 255, 0) 66%,
+      rgba(0, 0, 0, 0.096) 68%,
+      rgba(255, 18, 0, 0) 68%
+    ),
+    conic-gradient(
+      from 0deg at 68% 100%,
+      #b62741 0deg,
+      #253697 360deg,
+      #922337 360deg
+    );
 
+  .stars{
+    position: absolute;
+    width: 68vw;
+    height: 100vh;
+  }
   .pageControl {
     position: absolute;
     display: flex;

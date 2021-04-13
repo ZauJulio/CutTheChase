@@ -18,7 +18,11 @@
     #1a2a7d 180deg,
     #922337 600deg
   );
-
+  .stars{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+  }
   .appBar {
     position: absolute;
 

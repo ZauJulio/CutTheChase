@@ -1,3 +1,3 @@
 import AuthUserController from "../../../controllers/Auth";
 
-export default AuthUserController.delete;
+export default AuthUserController.signIn;
