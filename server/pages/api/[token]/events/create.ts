@@ -1,7 +1,7 @@
-import EventsController from "../../../../controllers/Auth/EventsController";
+import EventsController from "../../../../controllers/EventsController";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function create(req: NextApiRequest, res:NextApiResponse) {
+export default async (req: NextApiRequest, res:NextApiResponse) => {
   if (req.method === 'POST') {
     try {
       EventsController.create(req, res)

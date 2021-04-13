@@ -1,3 +1,3 @@
-import ProfilesController from "../../../controllers/Auth/ProfilesController";
+import ProfilesController from "../../../../controllers/Profile";
 
-export default ProfilesController.login;
+export default ProfilesController.get;
