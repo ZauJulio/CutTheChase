@@ -6,15 +6,13 @@ import { Event } from "../services/interfaces";
 
 export interface Location {
   lat: number;
-  long: number;
-  timestamp: number;
+  lng: number;
 }
 
 interface EventsContextData {
   location: Location;
   categories: SelectableCategory[];
   events: Event[];
-  updateLocation: Function;
   updateCategories: Function;
   updateSearchArgs: Function;
 }
@@ -32,10 +30,11 @@ export function EventsProvider({ children, ...rest }: EventsProviderProps) {
   const [categories, setCategories] = useState<SelectableCategory[]>(
     getSelectableCategories()
   );
+
   const [events, setEvents] = useState<Event[]>(
     getEvents(searchArgs, getSelectedCategories(), {
       lat: location.lat,
-      long: location.long,
+      lng: location.lng,
     })
   );
 
@@ -49,10 +48,6 @@ export function EventsProvider({ children, ...rest }: EventsProviderProps) {
       .filter((e) => e != null);
   }
 
-  function updateLocation(currentLocation: Location) {
-    setLocation(currentLocation);
-  }
-
   function updateCategories(selectedCategories: SelectableCategory[]) {
     setCategories(selectedCategories);
   }
@@ -62,16 +57,15 @@ export function EventsProvider({ children, ...rest }: EventsProviderProps) {
   }
 
   useEffect(() => {
-    Cookies.set("location", JSON.stringify(location));
     Cookies.set("categories", JSON.stringify(getSelectedCategories()));
 
     setEvents(
       getEvents(searchArgs, getSelectedCategories(), {
         lat: location.lat,
-        long: location.long,
+        lng: location.lng,
       })
     );
-  }, [location, categories]);
+  }, [categories]);
 
   return (
     <EventsContext.Provider
@@ -79,7 +73,6 @@ export function EventsProvider({ children, ...rest }: EventsProviderProps) {
         location,
         categories,
         events,
-        updateLocation,
         updateCategories,
         updateSearchArgs,
       }}

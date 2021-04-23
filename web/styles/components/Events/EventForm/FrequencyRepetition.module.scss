@@ -1,0 +1,66 @@
+.repetitionAccordion {
+  position: relative;
+  margin-top: 54px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .expandRepetitionValues {
+    position: static;
+    z-index: 100;
+
+    width: 11rem;
+    height: 64px;
+    padding: 0 16px;
+
+    background: #f5f7fa;
+    border: 1px solid #bac5db;
+    border-radius: 20px;
+    outline: none;
+
+    color: #26657e;
+    box-shadow: 2px 2px 4px 5px rgba(214, 214, 214, 0.4);
+
+  }
+
+  .repetitionValues {
+    display: flex;
+
+    position: absolute;
+    padding-top: 55px;
+
+    z-index: 99;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.26s ease;
+
+    :first-child {
+      padding-top: 15px;
+    }
+    :last-child {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    button {
+      height: 45px;
+      width: 11rem;
+      background: #eceff3;
+      border: 1px solid #bac5db;
+      color: #26657e;
+    }
+  }
+
+  &:hover {
+    .repetitionValues {
+      transform: scaleY(1);
+    }
+  }
+}

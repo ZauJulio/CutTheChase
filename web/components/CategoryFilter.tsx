@@ -4,13 +4,14 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { EventsContext } from "../contexts/EventsContext";
 import styles from "../styles/components/Categories.module.scss";
 
-function CategoryFilter() {
+interface CategoryFilterProps {
+  className?: string;
+}
+
+function CategoryFilter(props: CategoryFilterProps) {
+  const role: string = "user";
   const { categories, updateCategories } = useContext(EventsContext);
   const [expanded, setExpanded] = useState(false);
-
-  function expand() {
-    setExpanded(!expanded);
-  }
 
   const handleChange = (index: number) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -21,35 +22,37 @@ function CategoryFilter() {
   };
 
   return (
-    <div className={styles.categoriesContainer}>
-      <button className={styles.expand} type="button" onClick={expand}>
+    <div className={`${styles.categoriesContainer} ${props.className}`}>
+      <button
+        className={styles.expand}
+        type="button"
+        onClick={() => setExpanded(!expanded)}
+      >
         Categorias
         {!expanded && <IoIosArrowDown />}
         {expanded && <IoIosArrowUp />}
       </button>
-      {expanded && (
-        <div className={styles.formContainer}>
-          <form className={styles.form}>
-            {categories.map((category, index) => {
-              return (
-                <div key={index} className={styles.checkboxContainer}>
-                  <input
-                    type="checkbox"
-                    className={styles.checkbox}
-                    name={`${category.name}_${index}`}
-                    checked={category.selected}
-                    value={category.name}
-                    onChange={handleChange(index)}
-                  />
-                  <label htmlFor={`${category.name}_${index}`}>
-                    {category.name}
-                  </label>
-                </div>
-              );
-            })}
-          </form>
-        </div>
-      )}
+      <div className={styles.formContainer}>
+        <form className={styles.form}>
+          {categories.map((category, index) => {
+            return (
+              <div key={index} className={styles.checkboxContainer}>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name={`${category.name}_${index}`}
+                  checked={category.selected}
+                  value={category.name}
+                  onChange={handleChange(index)}
+                />
+                <label htmlFor={`${category.name}_${index}`}>
+                  {category.name}
+                </label>
+              </div>
+            );
+          })}
+        </form>
+      </div>
     </div>
   );
 }

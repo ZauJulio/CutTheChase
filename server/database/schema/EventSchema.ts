@@ -6,7 +6,7 @@ export const EventSchema = Yup.object().shape({
   datetime: Yup.number().required(),
   duration: Yup.number().required(),
   site: Yup.string().required(),
-  repeat: Yup.string().required().max(1),
+  repeat: Yup.string().required().max(5),
   promotor: Yup.string().required(),
   adress: Yup.array(
     Yup.object().shape({

@@ -1,0 +1,121 @@
+@keyframes floatup {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateY(-5rem);
+  }
+}
+
+@keyframes gradientByPosition {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.eventsPageContainer {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow-x: hidden;
+
+  .tittlePage {
+    position: absolute;
+    left: 10rem;
+    top: 5rem;
+
+    animation: floatup 1.5s forwards;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+
+    h1 {
+      background: -webkit-linear-gradient(
+        180deg,
+        #044761 50%,
+        #022e40c9 60%,
+        #022e40a2 70%
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      font-size: 10rem;
+      font-family: "Big Shoulders Display", cursive;
+
+      animation: gradientByPosition 2s ease forwards;
+      background-size: 200% 100%;
+    }
+  }
+
+  .topBarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 2rem;
+    width: 100%;
+    padding: 3.5rem 2rem 0 0;
+
+    .searchBar {
+      input,
+      input:hover {
+        width: 40vw;
+      }
+    }
+  }
+
+  .eventsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8rem 2rem 5rem 10rem;
+    gap: 5rem;
+    width: 100%;
+
+    .eventForm {
+      width: 60%;
+    }
+    .eventsListContainer {
+      width: 40%;
+      .mapContainer {
+        width: 100%;
+        height: 40vh;
+
+        margin-bottom: 40px;
+
+        border: 1px solid #d3e2e5;
+        border-radius: 20px;
+        box-shadow: 2px 2px 4px 5px rgb(214, 214, 214);
+      }
+      h1 {
+        color: #044761;
+        font-size: 2.5rem;
+        font-family: "Big Shoulders Display", cursive;
+
+        margin-bottom: 40px;
+      }
+      .eventsList {
+        width: 100%;
+        height: 52rem;
+        box-shadow: 2px 2px 4px 5px rgb(214, 214, 214);
+      }
+    }
+  }
+}

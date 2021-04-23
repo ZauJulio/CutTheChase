@@ -139,7 +139,7 @@ export function getCategories() {
 export function getEvents(
   searchArgs: string[],
   categories: string[],
-  location: { lat: number; long: number }
+  location: { lat: number; lng: number }
 ) {
   return events;
 }

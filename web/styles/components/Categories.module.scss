@@ -1,5 +1,6 @@
 .categoriesContainer {
   position: relative;
+  z-index: 1000;
   .expand {
     &:focus {
       outline: 0;
@@ -45,6 +46,10 @@
     z-index: -1;
     transition: linear 2s;
     
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.26s ease;
+
     .form {
       margin-top: 4rem;
       
@@ -62,6 +67,12 @@
           font-size: medium;
         }
       }
+    }
+  }
+
+  &:hover {
+    .formContainer {
+      transform: scaleY(1);
     }
   }
 }

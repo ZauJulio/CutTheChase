@@ -2767,6 +2767,11 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
+react-sais@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-sais/-/react-sais-1.0.1.tgz#231083ce923b8d8f006dc8ac8d54ebdc9bc44d67"
+  integrity sha512-MORqbBhZq2G2mVl6MwU4MXXxpKvYRInrIqw5cUD1H6Brf581x86kJBpWn2EXse8yLJUMeaL6cOC2sNmT8h0IsA==
+
 react-transition-group@^4.4.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"

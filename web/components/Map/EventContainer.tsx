@@ -90,7 +90,7 @@ export function EventContainer({ event, callback }: EventContainerProps) {
                     <a
                       target="_blank"
                       rel="noreferrer"
-                      href={`https://www.google.com/maps/dir/${location.lat},${location.long}/${event.adress.lat},${event.adress.lng}/`}
+                      href={`https://www.google.com/maps/dir/${location.lat},${location.lng}/${event.adress.lat},${event.adress.lng}/`}
                     >
                       <FiMapPin />
                     </a>
