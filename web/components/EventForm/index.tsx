@@ -1,8 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import ImageView from "./ImageView";
 
-import accordionStyles from "../../styles/components/Events/EventForm/FrequencyRepetition.module.scss";
+import ImageView from "./ImageView";
+import { AccordionCheckbox } from "../AccordionCheckbox";
+import { AccordionRadio } from "../AccordionRadio";
+import api, { getSelectableCategories } from "../../services/api";
+
 import styles from "../../styles/components/EventForm.module.scss";
 
 interface EventFormProps {
@@ -18,26 +21,16 @@ export default function EventForm(props: EventFormProps) {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [promotor, setPromotor] = useState("");
   const [locality, setLocality] = useState("");
   const [datetime, setDatetime] = useState("");
-  const [site, setSite] = useState("");
-  const [repetition, setRepetition] = useState("");
-  const [repetitionValues, setRepetitionValues] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [site, setSite] = useState("");
+  const [repeat, setRepeat] = useState("");
+  const [promotor, setPromotor] = useState("");
+  const [categories, setCategories] = useState(getSelectableCategories());
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
-  // function handleMapClick(event: LeafletMouseEvent) {
-  //   const { lat, lng } = event.latlng;
-
-  //   setPosition({
-  //     latitude: lat,
-  //     longitude: lng
-  //   });
-  // }
-
-  // console.log(props.geoLocation)
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
@@ -46,14 +39,30 @@ export default function EventForm(props: EventFormProps) {
 
     data.append("name", name);
     data.append("description", description);
-    data.append("lat", String(lat));
-    data.append("lng", String(lng));
+    data.append("promotor", promotor);
+    data.append("locality", locality);
+    data.append("datetime", datetime);
+    data.append("duration", String(duration));
+    data.append("site", site);
+    data.append("repeat", repeat);
+    data.append("categories", JSON.stringify(categories));
 
-    images.forEach((image) => {
-      data.append("images", image);
+    data.append(
+      "adress",
+      JSON.stringify({
+        lat,
+        lng,
+        locality,
+      })
+    );
+
+    // images.forEach(async (image) => {
+    //   data.append("images", image);
+    // });
+
+    await api.local.post("api/events/create", data).then((response) => {
+      console.log(response);
     });
-
-    // await api.post("orphanages", data);
 
     alert("Cadastro realizado com sucesso!");
 
@@ -61,18 +70,19 @@ export default function EventForm(props: EventFormProps) {
   }
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
-    if (!event.target.files) {
-      return;
-    }
+    if (!event.target.files) return;
+
     const selectedImages = Array.from(event.target.files);
 
     event.target.value = "";
 
     setImages(selectedImages);
 
-    const selectedImagesPreview = selectedImages.map((image) => {
-      return URL.createObjectURL(image);
-    });
+    const selectedImagesPreview = selectedImages.map((image) =>
+      URL.createObjectURL(image)
+    );
+
+    selectedImagesPreview.length = 5;
 
     setPreviewImages(selectedImagesPreview);
   }
@@ -86,8 +96,9 @@ export default function EventForm(props: EventFormProps) {
 
   return (
     <form
+      name="eventForm"
       className={`${styles.eventForm} ${props.className}`}
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
     >
       <fieldset>
         <legend>Dados</legend>
@@ -117,7 +128,6 @@ export default function EventForm(props: EventFormProps) {
             multiple
             onChange={handleSelectImages}
             type="file"
-            required
             id="image[]"
           />
         </div>
@@ -127,7 +137,6 @@ export default function EventForm(props: EventFormProps) {
           <input
             id="name"
             value={name}
-            required
             onChange={(event) => setName(event.target.value)}
           />
         </div>
@@ -140,7 +149,6 @@ export default function EventForm(props: EventFormProps) {
             id="description"
             maxLength={280}
             value={description}
-            required
             onChange={(event) => setDescription(event.target.value)}
           />
         </div>
@@ -150,7 +158,6 @@ export default function EventForm(props: EventFormProps) {
           <input
             id="locality"
             value={locality}
-            required
             onChange={(event) => setLocality(event.target.value)}
           />
         </div>
@@ -161,7 +168,6 @@ export default function EventForm(props: EventFormProps) {
             <input
               id="promotor"
               value={promotor}
-              required
               onChange={(event) => setPromotor(event.target.value)}
             />
           </div>
@@ -171,7 +177,6 @@ export default function EventForm(props: EventFormProps) {
             <input
               id="site"
               value={site}
-              required
               onChange={(event) => setSite(event.target.value)}
             />
           </div>
@@ -184,75 +189,38 @@ export default function EventForm(props: EventFormProps) {
               id="datetime"
               value={datetime}
               type="datetime-local"
-              required
               onChange={(event) => setDatetime(event.target.value)}
             />
           </div>
 
           <div className={styles.input_block}>
-            <label htmlFor="duration">Duração</label>
+            <label htmlFor="duration">Duração em Horas</label>
             <input
               id="duration"
               value={duration}
               type="number"
               placeholder="min"
-              required
               onChange={(event) => setDuration(Number(event.target.value))}
             />
           </div>
 
-          <div className={accordionStyles.repetitionAccordion}>
-            <button
-              className={accordionStyles.expandRepetitionValues}
-              type="button"
-              onClick={() => setRepetitionValues(!repetitionValues)}
-            >
-              {repetition === ""
+          <AccordionRadio
+            title={
+              repeat === ""
                 ? "Se repete..."
-                : repetition.endsWith("a")
-                ? `Toda ${repetition}`
-                : `Todo ${repetition}`}
-            </button>
+                : repeat.endsWith("a")
+                ? `Toda ${repeat}`
+                : `Todo ${repeat}`
+            }
+            values={["Dia", "Semana", "Mês", "Ano"]}
+            callback={(value) => setRepeat(value)}
+          />
 
-            <div className={accordionStyles.repetitionValues}>
-              <button
-                type="button"
-                onClick={() => {
-                  setRepetition("Dia");
-                  setRepetitionValues(!repetitionValues);
-                }}
-              >
-                Dia
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setRepetition("Semana");
-                  setRepetitionValues(!repetitionValues);
-                }}
-              >
-                Semana
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setRepetition("Mês");
-                  setRepetitionValues(!repetitionValues);
-                }}
-              >
-                Mês
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setRepetition("Ano");
-                  setRepetitionValues(!repetitionValues);
-                }}
-              >
-                Ano
-              </button>
-            </div>
-          </div>
+          <AccordionCheckbox
+            title="Categoria"
+            values={categories}
+            callback={(arr) => setCategories(arr)}
+          />
         </div>
       </fieldset>
 

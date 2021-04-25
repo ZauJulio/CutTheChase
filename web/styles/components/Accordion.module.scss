@@ -1,4 +1,4 @@
-.repetitionAccordion {
+.container {
   position: relative;
   margin-top: 54px;
 
@@ -7,9 +7,15 @@
   justify-content: flex-start;
   align-items: center;
 
-  .expandRepetitionValues {
+  .expandOptions {
     position: static;
     z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
 
     width: 11rem;
     height: 64px;
@@ -21,35 +27,80 @@
     outline: none;
 
     color: #26657e;
-    box-shadow: 2px 2px 4px 5px rgba(214, 214, 214, 0.637);
+    box-shadow: 2px 2px 4px 5px rgba(214, 214, 214, 0.4);
+
+    .compressIcon {
+      display: none;
+    }
   }
 
-  .repetitionValues {
-    display: flex;
+  .optionsContainer {
+    display: grid;
 
+    overflow-y: auto;
     position: absolute;
-    padding-top: 55px;
+    margin-top: 45px;
+    padding-top: 20px;
 
     z-index: 99;
+    height: 20rem;
+    width: 11rem;
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background: #eceff3;
+    border: 1px solid #bac5dbbb;
+    border-radius: 20px;
 
-    :first-child {
-      padding-top: 15px;
-    }
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.26s ease;
+
     :last-child {
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
     }
 
-    button {
-      height: 45px;
-      width: 11rem;
+    .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 100%;
+      padding: 15px 10px;
+
+      border-top: 1px solid #bac5db;
       background: #eceff3;
-      border: 1px solid #bac5db;
-      color: #26657e;
+
+      cursor: pointer;
+      user-select: none;
+
+      label {
+        color: #2e515f;
+        font-size: 1.1rem;
+      }
+
+      svg {
+        height: 30px;
+        width: 30px;
+      }
+
+      button,
+      input {
+        height: 45px;
+      }
+    }
+  }
+
+  &:hover {
+    .optionsContainer {
+      transform: scaleY(1);
+    }
+    .expandOptions {
+      .compressIcon {
+        display: none;
+      }
+      .expandIcon {
+        display: inline;
+      }
     }
   }
 }

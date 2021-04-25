@@ -37,14 +37,14 @@ function CategoryFilter(props: CategoryFilterProps) {
           {categories.map((category, index) => {
             return (
               <div key={index} className={styles.checkboxContainer}>
-                <input
+               <input
                   type="checkbox"
                   className={styles.checkbox}
                   name={`${category.name}_${index}`}
                   checked={category.selected}
                   value={category.name}
                   onChange={handleChange(index)}
-                />
+                /> 
                 <label htmlFor={`${category.name}_${index}`}>
                   {category.name}
                 </label>

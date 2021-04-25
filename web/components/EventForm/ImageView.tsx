@@ -5,7 +5,6 @@ import styles from "../../styles/components/Events/EventForm/ImageView.module.sc
 
 interface ImageViewProps {
   image: string;
-  key: number;
   callback?: (image: string) => void;
 }
 
@@ -19,7 +18,7 @@ export default function ImageView(props: ImageViewProps) {
   }
 
   return (
-    <div className={styles.imageViewContainer} key={props.key}>
+    <div className={styles.imageViewContainer}>
       <span
         className={styles.remove_image}
         onClick={callback}

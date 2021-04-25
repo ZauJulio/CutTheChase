@@ -20,7 +20,9 @@ export default {
       );
       if (!userAuthProfile) return http.Unauthorized(res);
       
-      return http.Ok(await authorize(userAuthProfile), res);
+      const session = await authorize(userAuthProfile);
+      
+      return http.Ok(session, res);
     } catch (error) {
       http.ServerError(error, res);
     }

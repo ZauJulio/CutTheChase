@@ -17,17 +17,17 @@ import { Position } from "../interfaces";
 export default function events() {
   const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
-  const location = useGeoLocation();
+  const location = useGeoLocation({ timeout: 60000 });
   const [clickLocation, setClickLocation] = useState(location);
 
   const handlerEventGeoLocation = (position: Position) => {
-    setClickLocation(position)
-  }
+    setClickLocation(position);
+  };
 
   return (
     <>
       <Aside />
-      <EventsProvider location={location}>
+      <EventsProvider location={{ lat: 0, lng: 0 }}>
         <div className={styles.eventsPageContainer}>
           <div className={styles.tittlePage}>
             <h1>Eventos</h1>
@@ -45,8 +45,8 @@ export default function events() {
             <div className={styles.eventsListContainer}>
               <Map
                 className={styles.mapContainer}
-                lat={location.lat}
-                lng={location.lng}
+                lat={clickLocation.lat}
+                lng={clickLocation.lng}
                 onClickGetLatLng={handlerEventGeoLocation}
               />
               <h1>Lista de Eventos</h1>

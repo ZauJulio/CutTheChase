@@ -57,7 +57,9 @@ export async function getToken(
     accessTokenExpires: _accessTokenExpires,
   } = userAccount;
 
-  if (!isValidAccessToken(_accessToken, _accessTokenExpires)) {
+  const isValid = await isValidAccessToken(_accessToken);
+
+  if (!isValid) {
     const token = await refreshToken(userAuthProfile);
 
     _accessToken = token.accessToken;
@@ -75,13 +77,9 @@ export async function getToken(
   };
 }
 
-export async function isValidAccessToken(
-  accessToken: string,
-  accessTokenExpires: Date
-) {
-  const expiredToken = accessTokenExpires <= new Date();
+export async function isValidAccessToken(accessToken: string) {
   const existingToken = await SessionsController.get(accessToken);
 
-  if (expiredToken || existingToken) return true;
+  if (Boolean(existingToken)) return true;
   return false;
 }

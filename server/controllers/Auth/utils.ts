@@ -18,7 +18,10 @@ export async function newUser(name: string, email: string, password: string) {
   });
 
   // Create session
-  const { accessToken, refreshToken, accessTokenExpires } = createToken(name, email);
+  const { accessToken, refreshToken, accessTokenExpires } = createToken(
+    name,
+    email
+  );
   await SessionsController.create({ userId, accessToken: accessToken });
 
   // Create auth account
@@ -57,7 +60,7 @@ export async function authorize(userAuthProfile: UserAuthProfile) {
     accessTokenExpires,
     newSession,
   } = await getToken(userAccount, userAuthProfile);
-  
+
   if (newSession) await SessionsController.create({ userId, accessToken });
 
   return {
@@ -74,12 +77,7 @@ export async function authorize(userAuthProfile: UserAuthProfile) {
 export async function unauthorize(userAuthProfile: UserAuthProfile) {
   const userAccount = await AccounstController.get(userAuthProfile._id);
 
-  if (
-    await isValidAccessToken(
-      userAccount.accessToken,
-      userAccount.accessTokenExpires
-    )
-  ) {
+  if (await isValidAccessToken(userAccount.accessToken)) {
     await SessionsController.delete(userAccount.accessToken);
   }
 }

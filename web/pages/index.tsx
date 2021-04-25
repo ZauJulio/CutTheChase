@@ -21,7 +21,7 @@ interface HomeProps {
 
 export default function Index(props: HomeProps) {
   const Map = dynamic(() => import("../components/Map"), { ssr: false });
-  const location = useGeoLocation();
+  const location = useGeoLocation({ timeout: 60000 });
 
   function getSelectedCategories() {
     return getSelectableCategories()
@@ -68,7 +68,7 @@ export default function Index(props: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { location, categories } = ctx.req.cookies;
+  const { categories } = ctx.req.cookies;
 
   return {
     props: {

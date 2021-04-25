@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import NextAuth, { NextAuthOptions, User } from "next-auth";
 import Providers from "next-auth/providers";
+
 import axios, { AxiosResponse } from "axios";
 
 import env from "../../../utils/env";
@@ -62,11 +64,18 @@ const options: NextAuthOptions = {
     redirect: async (url, baseUrl) => {
       return baseUrl;
     },
-    jwt: async (token, user: any) => {
-      if (user) {
+    jwt: async (token, user, account) => {
+      // The Oauth access token comes from Account,
+      // while the access token for credentials comes
+      // from User
+      if (user && user.accessToken) {
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
         token.accessTokenExpires = user.accessTokenExpires;
+      } else if (account && account.accessToken) {
+        token.accessToken = account.accessToken;
+        token.refreshToken = account.refreshToken;
+        token.accessTokenExpires = account.accessTokenExpires;
       }
 
       return token;
@@ -97,7 +106,7 @@ const options: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
-  debug: false,
+  debug: true,
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>

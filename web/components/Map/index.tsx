@@ -63,7 +63,6 @@ interface MapProps {
 function Map(props: MapProps) {
   const [useScroll, setUseScroll] = useState(true);
 
-  console.log(props.lat, props.lng)
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
 
@@ -79,7 +78,7 @@ function Map(props: MapProps) {
         zoomControl={false}
       >
         <ChangeView useScrollWheelZoom={useScroll} />
-        <MapEvents onClick={handleMapClick} />
+        {props.onClickGetLatLng && <MapEvents onClick={handleMapClick} />}
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
           url={`https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${process.env.MAPBOX_SECRET}`}

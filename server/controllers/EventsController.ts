@@ -3,42 +3,47 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import firestore from "../database/firestore";
 import geofire from "geofire-common";
 
+import formidable from "formidable";
+
 import ImagesController from "./ImagesStorageController";
 import { EventDataValidate } from "../database/schema/EventSchema";
 
 export default {
-  async index(request: NextApiRequest, response: NextApiResponse) {
+  async index(req: NextApiRequest, res: NextApiResponse) {
     const eventsRef = await firestore.collection("events").get();
     let events: any = [];
 
     eventsRef.forEach(async (doc) => {
-      const event = doc.data()
+      const event = doc.data();
       event.images = await ImagesController.upload(event.images);
-      
+
       events.push([doc.id, event]);
     });
 
-    return response.json(events);
+    return res.json(events);
   },
 
-  async get(request: NextApiRequest, response: NextApiResponse) {
-    const { id } = request.query;
-    const event: any = await firestore.collection("events").doc(String(id)).get();
-    
+  async get(req: NextApiRequest, res: NextApiResponse) {
+    const { id } = req.query;
+    const event: any = await firestore
+      .collection("events")
+      .doc(String(id))
+      .get();
+
     if (event !== undefined) {
-      return response.status(404).json("Event not found");
+      return res.status(404).json("Event not found");
     }
 
     event.images = await ImagesController.download(event.id, event.images);
-    
-    return response.status(200).json(event);
+
+    return res.status(200).json(event);
   },
 
-  async getInRadius(request: NextApiRequest, response: NextApiResponse) {
-    const radiusInM: number = Number(request.query.radiusInM);
+  async getInRadius(req: NextApiRequest, res: NextApiResponse) {
+    const radiusInM: number = Number(req.query.radiusInM);
     const center: [number, number] = [
-      Number(request.query.lat),
-      Number(request.query.lng),
+      Number(req.query.lat),
+      Number(req.query.lng),
     ];
 
     const bounds = geofire.geohashQueryBounds(center, radiusInM);
@@ -69,9 +74,12 @@ export default {
             const distanceInM = distanceInKm * 1000;
 
             if (distanceInM <= radiusInM) {
-              const event: any = doc
-              event.images = await ImagesController.download(event.id, event.images);
-      
+              const event: any = doc;
+              event.images = await ImagesController.download(
+                event.id,
+                event.images
+              );
+
               matchingDocs.push(event);
             }
           }
@@ -80,20 +88,30 @@ export default {
         return matchingDocs;
       })
       .then((matchingDocs) => {
-        return response.status(200).json(matchingDocs);
+        return res.status(200).json(matchingDocs);
       });
   },
 
-  async delete(request: NextApiRequest, response: NextApiResponse) {
-    const { id } = request.query;
-    const event = await firestore.collection("events").doc(String(id)).delete();
-    
+  async delete(req: NextApiRequest, res: NextApiResponse) {
+    const { id } = req.query;
+
+    await firestore.collection("events").doc(String(id)).delete();
     await ImagesController.delete(String(id));
 
-    return response.status(200);
+    return res.status(200);
   },
 
-  async create(request: NextApiRequest, response: NextApiResponse) {
+  async create(req: NextApiRequest, res: NextApiResponse) {
+    const dataForm: any = await new Promise(function (resolve, reject) {
+      const form = new formidable.IncomingForm({ keepExtensions: true });
+      
+      form.parse(req, function (err, fields, files) {
+        if (err) return reject(err);
+        resolve({ fields, files });
+      });
+    });
+
+
     const {
       name,
       description,
@@ -105,9 +123,20 @@ export default {
       promotor,
       assessments,
       categorys,
-    } = request.body;
+    } = dataForm;
 
-    const images = await ImagesController.upload(request.previewData);
+    console.log(
+      name,
+      description,
+      datetime,
+      duration,
+      site,
+      repeat,
+      adress,
+      promotor,
+      categorys
+    );
+    const images = await ImagesController.upload(dataForm.previewData);
 
     const geoHash = {
       geoHash: geofire.geohashForLocation([adress.lat, adress.lng]),
@@ -133,10 +162,10 @@ export default {
     const addEvent = firestore.collection("events").doc();
     await addEvent.set(data);
 
-    return response.status(201).json("event created");
+    return res.status(201).json("event created");
   },
 
-  // async update(request: NextApiRequest, response: NextApiResponse) {
+  // async update(req: NextApiRequest, res: NextApiResponse) {
   //   const {
   //     id,
   //     name,
@@ -149,9 +178,9 @@ export default {
   //     adress,
   //     assessments,
   //     categorys,
-  //   } = request.body;
+  //   } = req.body;
 
-  //   const requestImages = request.files as Express.Multer.File[];
+  //   const requestImages = req.files as Express.Multer.File[];
 
   //   const images = requestImages.map((image) => {
   //     return { path: image.filename };
@@ -176,6 +205,6 @@ export default {
   //   const updateEvent = firestore.collection("events").doc(id);
   //   await updateEvent.update(data);
 
-  //   return response.status(200).json("event updated");
+  //   return res.status(200).json("event updated");
   // },
 };

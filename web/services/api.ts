@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import {
   Adress,
   Image,
@@ -8,13 +10,15 @@ import {
   Event,
 } from "./interfaces";
 
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://192.168.2.107:3333",
+const local = axios.create({
+  baseURL: "/",
 });
 
-export default api;
+const CTC = axios.create({
+  baseURL: process.env.CTC_URL,
+});
+
+export default {local, CTC};
 
 var _adress: Adress = {
   id: 1,
@@ -122,13 +126,15 @@ var categories: Category[] = [
   { id: 4, name: "Dança" },
   { id: 5, name: "Sebo" },
   { id: 6, name: "Infantil" },
-  { id: 7, name: "Favoritos" },
-  { id: 8, name: "Avaliados" },
 ];
 
 export function getSelectableCategories() {
   return getCategories().map((category) => {
-    return Object.assign(category, { selected: false });
+    return {
+      id: category.id,
+      name: category.name,
+      selected: false,
+    };
   });
 }
 
