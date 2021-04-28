@@ -99,7 +99,7 @@ export default {
 
         // console.log(events)
         res.status(200).json(events);
-        res.end()
+        res.end();
       });
   },
 
