@@ -1,0 +1,191 @@
+@import "assets/master";
+
+.eventForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  background: white;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+
+  padding: 4rem;
+
+  box-shadow: $elevate;
+
+  fieldset {
+    border: 0;
+  }
+
+  fieldset legend {
+    width: 100%;
+
+    font-size: 2.2rem;
+    line-height: 2.3rem;
+    color: #0b4a62;
+    font-weight: 700;
+
+    border-bottom: 1px solid #d3d3d3;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .input_block + .input_block {
+    margin-top: 1rem;
+  }
+
+  .input_block {
+    width: 100%;
+
+    input[type="file"] {
+      visibility: hidden;
+    }
+
+    label {
+      display: flex;
+      color: #0b506b;
+      margin-bottom: 1rem;
+      line-height: 1rem;
+    }
+
+    label span {
+      font-size: 1rem;
+      color: #8fa7b3;
+      margin-left: 1rem;
+      line-height: 1rem;
+    }
+
+    input {
+      height: 4rem;
+      padding: 0 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      padding: 1rem;
+      line-height: 2rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #f5f7fa;
+      border: 1px solid #bac5db;
+      border-radius: 20px;
+      outline: none;
+      color: #26657e;
+    }
+
+    .imagesContainer {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 1rem;
+
+      img {
+        width: 7rem;
+        height: 6rem;
+        object-fit: cover;
+        border-radius: 20px;
+      }
+
+      .new_image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 96px;
+        width: 104px;
+
+        background: #f5f8fa;
+        border: 1px dashed #022e409a;
+        border-radius: 20px;
+
+        cursor: pointer;
+      }
+    }
+
+    .button_select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      button {
+        height: 2rem;
+        cursor: pointer;
+
+        color: #5c8599;
+        background: #f5f8fa;
+        border: 1px solid #d3e2e5;
+      }
+      button.active {
+        background: #edfff6;
+        border: 1px solid #a1e9c5;
+        color: #37c77f;
+      }
+
+      button.non-active {
+        background: #fdf0f5;
+        border: 1px solid #ffbcd4;
+        color: #ff669d;
+      }
+      button:first-child {
+        border-radius: 20px 0px 0px 20px;
+      }
+
+      button:last-child {
+        border-radius: 0 20px 20px 0;
+        border-left: 0;
+      }
+    }
+  }
+
+  .promotorContainer,
+  .lastContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+    .input_block {
+      margin-top: 2rem;
+    }
+  }
+
+  .confirm_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 5rem;
+    
+    border: 0;
+    width: 100%;
+    height: 4.5rem;
+
+    cursor: pointer;
+    
+    font-weight: 800;
+    color: #ffffff;
+    
+    background: #2fd482;
+    border-radius: 20px;
+    outline: none;
+    
+    transition: background-color 0.2s;
+    svg {
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      background: #2fb371;
+    }
+  }
+}
+
+.accordions {
+  margin-top: 54px;
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { withRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/client";
 
@@ -15,6 +14,11 @@ function Aside({ router }) {
   const [session] = useSession();
   let role = "admin";
 
+  function selected(path: string) {
+    if (router.pathname == path) return styles.selected;
+    else return "";
+  }
+
   return (
     <aside className={styles.asideContainer}>
       <header className={styles.sideBarHeader}>
@@ -28,8 +32,8 @@ function Aside({ router }) {
         <div className={styles.sepMenu} />
       </header>
 
-      <div className={styles.sidebarContent} onClick={() => signIn()}>
-        <div>
+      <div className={styles.sidebarContent}>
+        <div onClick={() => signIn()}>
           {session && session.user.image ? (
             <img
               className={styles.userImage}
@@ -41,32 +45,30 @@ function Aside({ router }) {
           )}
         </div>
 
-        {router.pathname !== "/" && (
-          <Link href="/">
-            <div>
-              <FaMapMarkedAlt />
-            </div>
-          </Link>
-        )}
+        <Link href="/">
+          <div className={selected("/")}>
+            <FaMapMarkedAlt />
+          </div>
+        </Link>
 
         {role === "admin" && (
           <Link href="/Users">
-            <div>
+            <div className={selected("/users")}>
               <FaUsersCog />
             </div>
           </Link>
         )}
 
         {(role === "promotor" || role === "admin") && (
-          <Link href="/Events">
-            <div>
+          <Link href="/events">
+            <div className={selected("/events")}>
               <BsCalendarFill />
             </div>
           </Link>
         )}
 
         <Link href="/preferences">
-          <div>
+          <div className={selected("/preferences")}>
             <BsGearFill />
           </div>
         </Link>

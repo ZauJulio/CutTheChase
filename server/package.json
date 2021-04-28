@@ -14,7 +14,9 @@
     "express-async-errors": "^3.1.1",
     "firebase": "^8.3.1",
     "firebase-admin": "^9.5.0",
+    "formidable": "^1.2.2",
     "geofire-common": "^5.2.0",
+    "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3",
     "multer": "^1.4.2",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
+    "@types/formidable": "^1.2.1",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/multer": "^1.4.5",
     "@types/node": "^14.14.35",

@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export type Adress = {
+export type Address = {
   id: number;
   lat: number;
   lng: number;
@@ -35,7 +35,7 @@ export type Event = {
   rating: number;
   repeat: Repeat;
   promotor: User;
-  adress: Adress;
+  address: Address;
   assessments: Assessment[];
   images: Image[];
   categorys: string[];

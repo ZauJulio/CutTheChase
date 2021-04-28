@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { newUser } from "./utils";
+import { externalAuthorization, newUser } from "./utils";
 import UsersController from "./_UsersController";
 import { UserCredentials, UserProfile } from "../../models/User";
 
@@ -10,7 +10,10 @@ import http from "../utils/httpHandler";
 export default {
   async login(req: NextApiRequest, res: NextApiResponse) {
     if (http.MethodNotAllowed(req, res, "GET")) return;
-    const [email, password] = [String(req.query.email), String(req.query.password)];
+    const [email, password] = [
+      String(req.query.email),
+      String(req.query.password),
+    ];
 
     try {
       // Check that the auth profile exists and get it
@@ -19,8 +22,10 @@ export default {
         password
       );
       if (!userAuthProfile) return http.Unauthorized(res);
-      
-      return http.Ok(await authorize(userAuthProfile), res);
+
+      const session = await authorize(userAuthProfile);
+
+      return http.Ok(session, res);
     } catch (error) {
       http.ServerError(error, res);
     }
@@ -39,19 +44,31 @@ export default {
       http.ServerError(error, res);
     }
   },
-  async signOut(req: NextApiRequest, res: NextApiResponse) {
+  async externalLogin(req: NextApiRequest, res: NextApiResponse) {
     if (http.MethodNotAllowed(req, res, "GET")) return;
-    const { email, password } = req.body;
+    const [providerAccountId] = [String(req.query.providerAccountId)];
 
     try {
-      // Check that the auth profile exists and get it
-      const userAuthProfile = await UsersController.getByCredentials(
-        email,
-        password
-      );
-      if (!userAuthProfile) return http.Unauthorized(res);
+      const session = await externalAuthorization(providerAccountId);
 
-      return http.Ok(await unauthorize(userAuthProfile), res);
+      if (session) return http.Ok(session, res);
+      else return http.Unauthorized(res);
+    } catch (error) {
+      http.ServerError(error, res);
+    }
+  },
+  async signOut(req: NextApiRequest, res: NextApiResponse) {
+    if (http.MethodNotAllowed(req, res, "GET")) return;
+    const [id, accessToken] = [
+      String(req.query.userId),
+      String(req.query.accessToken),
+    ];
+
+    try {
+      const unauthorized = await unauthorize(id, accessToken);
+
+      if (unauthorized) return http.Ok({}, res);
+      else return http.Unauthorized(res);
     } catch (error) {
       http.ServerError(error, res);
     }

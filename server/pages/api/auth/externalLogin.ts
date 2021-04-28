@@ -1,3 +1,3 @@
 import AuthUserController from "../../../controllers/Auth";
 
-export default AuthUserController.login;
+export default AuthUserController.externalLogin;

@@ -16,6 +16,9 @@ export default {
   async get(accessToken: string): Promise<Session> {
     return await SessionModel.findOne({ accessToken });
   },
+  async getByUserId(userId: string | ObjectId): Promise<Session> {
+    return await SessionModel.findOne({ userId });
+  },
   async delete(accessToken: string): Promise<void> {
     await SessionModel.deleteOne({ accessToken });
   },

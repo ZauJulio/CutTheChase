@@ -28,6 +28,12 @@ export default {
   async get(_id: ObjectId): Promise<UserAccount> {
     return await AccountModel.findOne({ userId: _id });
   },
+  async getByAccessToken(accessToken: string): Promise<UserAccount> {
+    return await AccountModel.findOne({ accessToken });
+  },
+  async getByProviderAccountId(providerAccountId: string): Promise<UserAccount> {
+    return await AccountModel.findOne({ providerAccountId });
+  },
   async update(_id: ObjectId, account: UserAccount): Promise<UserAccount> {
     return (
       await AccountModel.collection.findOneAndUpdate(

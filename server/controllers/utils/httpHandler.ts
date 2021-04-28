@@ -2,14 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default {
   Ok(data: any, res: NextApiResponse) {
-    res.status(200).json(data);
+    if (data !== {}) res.status(200).json(data);
+    else res.status(200);
     res.end();
   },
-  
+
   NotFound(res: NextApiResponse) {
     res.status(404).end();
   },
-  
+
   ServerError(err: any, res: NextApiResponse) {
     console.log(err);
 
@@ -24,7 +25,7 @@ export default {
   Unauthorized(res: NextApiResponse) {
     res.status(401).end();
   },
-  
+
   MethodNotAllowed(req: NextApiRequest, res: NextApiResponse, method: string) {
     if (req.method !== method) {
       res.status(405).end();

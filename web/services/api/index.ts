@@ -1,22 +1,22 @@
+import axios from "axios";
+import * as events from "./events";
+
 import {
-  Adress,
+  Address,
   Image,
-  Category,
   Favorite,
   Preferences,
   User,
   Event,
-} from "./interfaces";
+} from "../../interfaces";
 
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://192.168.2.107:3333",
+export const api = axios.create({
+  baseURL: process.env.CTC_URL,
 });
 
-export default api;
+export default { events };
 
-var _adress: Adress = {
+var _address: Address = {
   id: 1,
   lat: -6.4572625,
   lng: -37.0899993,
@@ -33,14 +33,8 @@ var _favorite: Favorite[] = [
 var preferences: Preferences = {
   id: 1,
   favcategories: [
-    {
-      id: 1,
-      name: "Artes Visuais",
-    },
-    {
-      id: 2,
-      name: "Música",
-    },
+     "Artes Visuais",
+     "Música",
   ],
 };
 
@@ -63,14 +57,14 @@ var images: Image[] = [
   { id: "3", url: "./images/3.jpg" },
 ];
 
-var events: Event[] = [
+var _events: Event[] = [
   {
     id: 1,
     name: "Festa de Santana",
     description:
       "A Festa de Santana trata-se da festa da padroeira da cidade de Caicó, no interior do estado brasileiro do Rio Grande do Norte.",
     datetime: new Date("2021-06-27"),
-    adress: _adress,
+    address: _address,
     duration: 880000000,
     site: "https://caico.rn.gov.br/",
     rating: 4.5,
@@ -111,26 +105,19 @@ var events: Event[] = [
     images: images,
     repeat: { id: 1, frequency: "d" },
     promotor: user,
-    category: [{ id: 1, name: "Artes Visuais" }],
+    category: ["Artes Visuais"],
   },
 ];
 
-var categories: Category[] = [
-  { id: 1, name: "Música" },
-  { id: 2, name: "Artes Visuais" },
-  { id: 3, name: "Festival" },
-  { id: 4, name: "Dança" },
-  { id: 5, name: "Sebo" },
-  { id: 6, name: "Infantil" },
-  { id: 7, name: "Favoritos" },
-  { id: 8, name: "Avaliados" },
+var categories: string[] = [
+  "Música",
+  "Artes Visuais",
+  "Festival",
+  "Dança",
+  "Sebo",
+  "Infantil",
 ];
 
-export function getSelectableCategories() {
-  return getCategories().map((category) => {
-    return Object.assign(category, { selected: false });
-  });
-}
 
 export function getCategories() {
   return categories;
@@ -139,14 +126,7 @@ export function getCategories() {
 export function getEvents(
   searchArgs: string[],
   categories: string[],
-  location: { lat: number; long: number }
+  location: { lat: number; lng: number }
 ) {
-  return events;
-}
-
-export function login(email: string, password?: string) {
-  return {
-    status: 200,
-    user: user,
-  };
+  return _events;
 }

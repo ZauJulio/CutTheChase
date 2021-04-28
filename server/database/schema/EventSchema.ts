@@ -6,25 +6,15 @@ export const EventSchema = Yup.object().shape({
   datetime: Yup.number().required(),
   duration: Yup.number().required(),
   site: Yup.string().required(),
-  repeat: Yup.string().required().max(1),
+  repeat: Yup.string().required().max(5),
   promotor: Yup.string().required(),
-  adress: Yup.array(
-    Yup.object().shape({
-      lat: Yup.number().required(),
-      lng: Yup.number().required(),
-      locality: Yup.string().required(),
-    })
-    ),
-  geohash: Yup.string().required(),
-  assessments: Yup.array(
-    Yup.object().shape({
-      user: Yup.string().required(),
-      evaluation: Yup.string().required(),
-      rate: Yup.number().required(),
-      showName: Yup.boolean().required(),
-    })
-  ),
-  categorys: Yup.array().of(Yup.string()).required(),
+  address: Yup.object().shape({
+    lat: Yup.number().required(),
+    lng: Yup.number().required(),
+    locality: Yup.string().required(),
+  }),
+  geoHash: Yup.string().required(),
+  categories: Yup.array().of(Yup.string()).required(),
   images: Yup.array().of(Yup.string()).required(),
 });
 

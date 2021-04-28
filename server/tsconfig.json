@@ -21,8 +21,12 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "pages/api/list.js", "../web/services/mongodb.ts", "database/schema/UserSchema.js"  ],
+    "**/*.tsx",
+    "pages/api/list.js",
+    "../web/services/mongodb.ts",
+    "database/schema/UserSchema.js",
+    "pages/api/events/create.js"
+  ],
   "exclude": [
     "node_modules"
   ]

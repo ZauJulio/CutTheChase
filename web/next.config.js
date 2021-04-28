@@ -1,22 +1,34 @@
 const path = require("path");
 const withImages = require("next-images");
 
+let secureEnv = require("secure-env");
+
+const enc_env = secureEnv({
+  secret: process.env.ENV_SECRET,
+});
+
+process.env = {
+  ...process.env,
+  ...enc_env,
+};
+
 module.exports = withImages({
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
-  },
   env: {
+    CTC_URL: process.env.CTC_URL,
     JWT_SECRET: process.env.JWT_SECRET,
     MAPBOX_SECRET: process.env.MAPBOX_SECRET,
     CREDENTIALS_AUTH_URL: process.env.CREDENTIALS_AUTH_URL,
   },
-  ignoreTypes: ["svg"],
-  webpack(config, options) {
-    return config;
+  sassOptions: {
+    includePaths: [
+      path.join(__dirname, "styles"),
+      path.join(__dirname, "assets"),
+    ],
   },
   async headers() {
     return [
       {
+        // matching all API routes
         source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },

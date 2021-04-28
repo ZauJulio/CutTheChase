@@ -1,18 +1,13 @@
-export interface Adress {
+export interface Position {
+  lat: number;
+  lng: number;
+}
+
+export interface Address {
   id: number;
   lat: number;
   lng: number;
   locality: string;
-}
-
-export interface Image {
-  id: string;
-  url: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
 }
 
 export interface Assessment {
@@ -35,7 +30,7 @@ export interface Role {
 
 export interface Preferences {
   id: number;
-  favcategories: Category[];
+  favcategories: string[];
 }
 
 export interface User {
@@ -63,10 +58,10 @@ export interface Event {
   rating: number;
   repeat: Repeat;
   promotor: User;
-  adress: Adress;
+  address: Address;
   assessments: Assessment[];
-  images: Image[];
-  category: Category[];
+  images: string[];
+  category: string[];
 }
 
 export interface SelectableCategory {

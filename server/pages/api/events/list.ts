@@ -1,4 +1,4 @@
-import EventsController from "../../../../controllers/EventsController";
+import EventsController from "../../../controllers/Events";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function list(req: NextApiRequest, res:NextApiResponse) {

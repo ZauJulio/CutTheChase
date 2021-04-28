@@ -1,0 +1,34 @@
+.imageViewContainer {
+  position: relative;
+
+  .image_view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 96px;
+    width: 104px;
+
+    cursor: pointer;
+    
+    border-radius: 20px;
+    border: 1px dashed #022e409a;
+    background: #f5f8fa;
+    box-shadow: 2px 2px 4px 5px rgba(214, 214, 214, 0.541);
+  }
+  
+  .remove_image {
+    position: absolute;
+    
+    margin-left: 74px;
+    padding: 5px 5px 0 5px;
+  
+    background: #fff;
+    
+    border: 1px dashed #035a7c;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  
+    cursor: pointer;
+  }
+}
