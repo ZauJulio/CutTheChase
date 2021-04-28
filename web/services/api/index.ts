@@ -3,7 +3,6 @@ import * as events from "./events";
 
 import {
   Address,
-  Image,
   Favorite,
   Preferences,
   User,
@@ -51,10 +50,10 @@ var user: User = {
   favorites: _favorite,
 };
 
-var images: Image[] = [
-  { id: "1", url: "./images/1.jpg" },
-  { id: "2", url: "./images/2.jpg" },
-  { id: "3", url: "./images/3.jpg" },
+var images: string[] = [
+  "./images/1.jpg",
+  "./images/2.jpg",
+  "./images/3.jpg",
 ];
 
 var _events: Event[] = [

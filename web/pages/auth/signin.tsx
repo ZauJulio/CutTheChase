@@ -122,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (
     props: {
       session: await getSession(ctx),
       providers: await getProviders(),
-      csrfToken: await getCsrfToken(),
+      csrfToken: await getCsrfToken(ctx),
     },
   };
 };
