@@ -71,7 +71,7 @@ export default function Index(props: HomeProps) {
   return (
     <div className={styles.eventsContainer}>
       <Head>
-        <title>Cut The Chase | Eventos</title>
+        <title>Cut The Chase | Dash</title>
         <link rel="icon" href="/favicon.svg" />
         <meta
           name="description"

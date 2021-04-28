@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import Head from "next/head";
+import useSWR from "swr";
 
 import { useGeoLocation } from "react-sais";
 
@@ -10,12 +12,12 @@ import { EventsList } from "../components/EventsList";
 
 import { EventsProvider } from "../contexts/EventsContext";
 
-import styles from "../styles/pages/Events.module.scss";
 import { Position, Event } from "../interfaces";
 import { AccordionCheckbox } from "../components/AccordionCheckbox";
 import { api, getCategories } from "../services/api";
-import useSWR from "swr";
 import { download } from "../services/storage";
+
+import styles from "../styles/pages/Events.module.scss";
 
 const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
@@ -24,7 +26,7 @@ export default function events() {
   const [mapPosition, setMapPosition] = useState({ lat: 0, lng: 0 });
   const [clickLocation, setClickLocation] = useState({ lat: 0, lng: 0 });
   const [radius, setRadius] = useState(9.6);
-
+  
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [categories, setCategories] = useState(getCategories());
   const [searchArgs, setSearchArgs] = useState<string[]>();
@@ -74,6 +76,14 @@ export default function events() {
 
   return (
     <>
+      <Head>
+        <title>Cut The Chase | Eventos</title>
+        <link rel="icon" href="/favicon.svg" />
+        <meta
+          name="description"
+          content="Busque, crie, edite ou remova eventos."
+        />
+      </Head>
       <Aside />
       <EventsProvider location={{ lat: 0, lng: 0 }}>
         <div className={styles.eventsPageContainer}>
