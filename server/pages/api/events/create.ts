@@ -19,6 +19,13 @@ const api = nextConnect({
 api.use(upload.array("images"));
 api.use(cors());
 
+api.options('/', function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.end();
+});
+
 api.post((req: any, res: any) => {
   EventsController.create(req, res);
 });
