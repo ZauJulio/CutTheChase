@@ -5,6 +5,7 @@ import { download } from "../storage";
 export async function create(data: FormData, token: string): Promise<number> {
   const res = await api
     .post("/api/events/create", data, {
+      withCredentials: false,
       headers: {
         Authorization: token,
       },
