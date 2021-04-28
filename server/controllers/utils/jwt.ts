@@ -77,6 +77,36 @@ export async function getToken(
   };
 }
 
+export async function getSessionToken(userAccount: UserAccount, userAuthProfile: UserAuthProfile) {
+  let newSession = false;
+
+  // Check and get token validate
+  let {
+    accessToken: _accessToken,
+    refreshToken: _refreshToken,
+    accessTokenExpires: _accessTokenExpires,
+  } = userAccount;
+
+  const isValid = await isValidAccessToken(_accessToken);
+
+  if (!isValid) {
+    const token = createToken(userAuthProfile.email, userAuthProfile.name);
+
+    _accessToken = token.accessToken;
+    _refreshToken = token.refreshToken;
+    _accessTokenExpires = token.accessTokenExpires;
+
+    newSession = true;
+  }
+
+  return {
+    accessToken: _accessToken,
+    refreshToken: _refreshToken,
+    accessTokenExpires: _accessTokenExpires,
+    newSession,
+  };
+}
+
 export async function isValidAccessToken(accessToken: string) {
   const existingToken = await SessionsController.get(accessToken);
 

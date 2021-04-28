@@ -1,84 +1,64 @@
 import React, { useState } from "react";
-import { LeafletMouseEvent } from "leaflet";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMap,
-  useMapEvents,
-} from "react-leaflet";
+import { LatLng, LeafletMouseEvent } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
-import { Event } from "../../services/interfaces";
-import iconMarker from "../../utils/NewMapMarkerIcon";
-import MapMarker from "./EventMarker";
+import { Interaction, MapOnDrag, MapOnClick, MapOnZoom } from "./hooks";
+
+import { Event } from "../../interfaces";
+import { EventMarker } from "./EventMarker";
 
 import { Position } from "../../interfaces";
 
-import "leaflet/dist/leaflet.css";
 import styles from "../../styles/components/Map.module.scss";
-
-interface ChangeViewProps {
-  useScrollWheelZoom: boolean;
-}
-
-function ChangeView(props: ChangeViewProps) {
-  const map = useMap();
-
-  map.setView(map.getCenter(), map.getZoom());
-
-  if (props.useScrollWheelZoom) map.scrollWheelZoom.enable();
-  else map.scrollWheelZoom.disable();
-
-  return null;
-}
-
-interface MapEventsProps {
-  onClick: (event: LeafletMouseEvent) => void;
-}
-
-function MapEvents(props: MapEventsProps) {
-  const [position, setPosition] = useState(null);
-
-  useMapEvents({
-    click(e: LeafletMouseEvent) {
-      setPosition(e.latlng);
-      props.onClick(e);
-    },
-  });
-
-  return position === null ? null : (
-    <Marker position={position} icon={iconMarker} />
-  );
-}
+import "leaflet/dist/leaflet.css";
 
 interface MapProps {
   className?: string;
-  lat: number;
-  lng: number;
   events?: Event[];
-  onClickGetLatLng?: (position: Position) => void;
+  position?: Position;
+  showModal?: boolean;
+  initialZoomInKm?: number;
+  onZoom?: (radius: number) => void;
+
+  initialPosition?: Position;
+  onDrag?: (position: Position) => void;
+
+  onClick?: (position: Position) => void;
+
+  onClickMarker?: (event: Event) => void;
 }
 
 function Map(props: MapProps) {
-  const [useScroll, setUseScroll] = useState(true);
+  const [interaction, setInteraction] = useState(true);
+  const [position, setPosition] = useState<Position>(
+    props.initialPosition ?? props.position
+  );
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
+    props.onClick({ lat, lng });
+  }
 
-    props.onClickGetLatLng && props.onClickGetLatLng({ lat, lng });
+  function handleMapDrag(_position: LatLng) {
+    const { lat, lng } = _position;
+    setPosition({ lat, lng });
+    props.onDrag({ lat, lng });
   }
 
   return (
     <div className={styles.map}>
       <MapContainer
+        center={[position.lat, position.lng]}
         className={`${styles.mapContainer} ${props.className}`}
-        center={[props.lat, props.lng]}
-        zoom={14}
         zoomControl={false}
+        zoom={props.initialZoomInKm * 1.45 ?? 14}
       >
-        <ChangeView useScrollWheelZoom={useScroll} />
-        {props.onClickGetLatLng && <MapEvents onClick={handleMapClick} />}
+        <Interaction useScrollWheelZoom={interaction} useDrag={interaction} />
+
+        {props.onClick && <MapOnClick onClick={handleMapClick} />}
+        {props.onDrag && <MapOnDrag onDrag={handleMapDrag} />}
+        {props.onZoom && <MapOnZoom onZoom={props.onZoom} />}
+
         <TileLayer
           attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
           url={`https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${process.env.MAPBOX_SECRET}`}
@@ -86,7 +66,13 @@ function Map(props: MapProps) {
 
         {props.events &&
           props.events.map((event: Event, index) => (
-            <MapMarker event={event} key={index} setUseScroll={setUseScroll} />
+            <EventMarker
+              event={event}
+              key={index}
+              lock={(props.showModal ?? true) && setInteraction}
+              onClick={props.onClickMarker}
+              showModal={props.showModal ?? true}
+            />
           ))}
       </MapContainer>
     </div>

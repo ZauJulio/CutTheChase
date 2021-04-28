@@ -143,7 +143,7 @@
   }
 
   .promotorContainer,
-  .timeContainer {
+  .lastContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -171,16 +171,21 @@
     font-weight: 800;
     color: #ffffff;
     
-    background: #3cdc8c;
+    background: #2fd482;
     border-radius: 20px;
-
+    outline: none;
+    
     transition: background-color 0.2s;
     svg {
       margin-right: 1rem;
     }
 
     &:hover {
-      background: #36cf82;
+      background: #2fb371;
     }
   }
+}
+
+.accordions {
+  margin-top: 54px;
 }

@@ -4,36 +4,56 @@ import { CheckBox } from "./CheckBox";
 import styles from "../styles/components/Accordion.module.scss";
 
 interface SelectableValue {
-  id: number;
   name: string;
   selected: boolean;
 }
 
 interface SelectValues {
-  (arr: Array<SelectableValue>): void;
+  (arr: Array<string>): void;
 }
 
 interface AccordionProps {
   className?: string;
+  buttonStyle?: string;
   title: string;
-  values: Array<SelectableValue>;
+  values: Array<string>;
   callback: SelectValues;
 }
 
+export function getSelectableValues(values: string[]) {
+  return values.map((value) => {
+    return {
+      name: value,
+      selected: false,
+    };
+  });
+}
+
 export function AccordionCheckbox(props: AccordionProps) {
-  const [values, setValues] = useState<Array<SelectableValue>>(props.values);
+  const [values, setValues] = useState<Array<SelectableValue>>(
+    getSelectableValues(props.values)
+  );
 
   function handleChange(index: number) {
     var valuesCopy = JSON.parse(JSON.stringify(values));
     valuesCopy[index].selected = !valuesCopy[index].selected;
 
-    props.callback && props.callback(valuesCopy);
+    const selectedValues = valuesCopy
+      .map((value: SelectableValue) => {
+        return value.selected ? value.name : false;
+      })
+      .filter((value: string | boolean) => value);
+
+    props.callback && props.callback(selectedValues);
     setValues(valuesCopy);
   }
 
   return (
-    <div className={styles.container}>
-      <button className={styles.expandOptions} type="button">
+    <div className={`${styles.container} ${props.className}`}>
+      <button
+        className={`${styles.expandOptions} ${props.buttonStyle}`}
+        type="button"
+      >
         {props.title}
         <IoIosArrowDown className={styles.expandIcon} />
         <IoIosArrowUp className={styles.compressIcon} />

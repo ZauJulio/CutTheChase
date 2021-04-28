@@ -13,7 +13,7 @@ export interface UserAuthProfile {
 }
 
 export default {
-  async getById(_id: ObjectId): Promise<UserAuthProfile> {
+  async getById(_id: ObjectId | string): Promise<UserAuthProfile> {
     return await UserModel.findOne({ _id });
   },
   async getByCredentials(

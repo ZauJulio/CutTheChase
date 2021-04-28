@@ -1,15 +1,15 @@
 import nextConnect from "next-connect";
 import multer from "multer";
+import cors from "cors";
 
 import uploadConfig from "../../../config/upload";
+import EventsController from "../../../controllers/Events";
 
 const upload = multer(uploadConfig);
 
 const api = nextConnect({
   onError(error, req, res: any) {
-    res
-      .status(501)
-      .json({ error: `Sorry something Happened! ${error.message}` });
+    res.status(501).json(error.message);
   },
   onNoMatch(req, res: any) {
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
@@ -17,17 +17,12 @@ const api = nextConnect({
 });
 
 api.use(upload.array("images"));
+api.use(cors());
 
-api.post((req: any, res) => {
-  console.log(req.body, req.files);
-
-  res.status(200).json({ data: "success" });
+api.post((req: any, res: any) => {
+  EventsController.create(req, res);
 });
 
-export default api;
+export const config = { api: { bodyParser: false } };
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export default api;

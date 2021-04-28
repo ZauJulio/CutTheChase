@@ -1,6 +1,5 @@
 .container {
   position: relative;
-  margin-top: 54px;
 
   display: flex;
   flex-direction: column;
@@ -39,8 +38,8 @@
 
     overflow-y: auto;
     position: absolute;
-    margin-top: 45px;
-    padding-top: 20px;
+    margin-top: 20px;
+    padding-top: 40px;
 
     z-index: 99;
     height: 20rem;
@@ -48,6 +47,7 @@
 
     background: #eceff3;
     border: 1px solid #bac5dbbb;
+    box-shadow: 2px 2px 4px 5px rgba(214, 214, 214, 0.4);
     border-radius: 20px;
 
     transform: scaleY(0);

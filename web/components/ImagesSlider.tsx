@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Image } from "../services/interfaces";
 import styles from "../styles/components/ImagesSlider.module.scss";
 
 interface ImagesSliderProps {
-  images: Image[];
+  images: string[];
   className?: string;
 }
 
@@ -12,11 +11,12 @@ export function ImagesSlider(props: ImagesSliderProps) {
     Math.floor(props.images.length / 2)
   );
 
+  console.log(props.images)
   return (
     <div className={`${styles.imagesContainer} ${props.className}`}>
       <img
         className={styles.primaryImage}
-        src={props.images[activeIndex].url}
+        src={props.images[activeIndex]}
         alt={"event"}
       />
 
@@ -24,14 +24,14 @@ export function ImagesSlider(props: ImagesSliderProps) {
         {props.images.map((image, index) => {
           return (
             <button
-              key={image.id}
+              key={index}
               className={activeIndex === index ? styles.active : ""}
               type="button"
               onClick={() => {
                 setActiveIndex(index);
               }}
             >
-              <img src={image.url} alt={String(index)} />
+              <img src={image} alt={String(index)} />
             </button>
           );
         })}

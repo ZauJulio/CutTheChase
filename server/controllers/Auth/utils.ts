@@ -2,7 +2,12 @@ import AccounstController from "./_AccountsController";
 import SessionsController from "./_SessionsController";
 import UsersController from "./_UsersController";
 
-import { createToken, getToken, isValidAccessToken } from "../utils/jwt";
+import {
+  createToken,
+  getSessionToken,
+  getToken,
+  isValidAccessToken,
+} from "../utils/jwt";
 
 import UsersAppProfileController from "../Profile";
 
@@ -74,10 +79,48 @@ export async function authorize(userAuthProfile: UserAuthProfile) {
   };
 }
 
-export async function unauthorize(userAuthProfile: UserAuthProfile) {
-  const userAccount = await AccounstController.get(userAuthProfile._id);
+export async function externalAuthorization(providerAccountId: string) {
+  const userAccount = await AccounstController.getByProviderAccountId(
+    providerAccountId
+  );
 
-  if (await isValidAccessToken(userAccount.accessToken)) {
-    await SessionsController.delete(userAccount.accessToken);
+  if (!userAccount) return null;
+
+  const userAccountId = userAccount.userId.toString();
+  const userAuthProfile = await UsersController.getById(userAccountId);
+
+  if (!userAuthProfile) return null;
+
+  let {
+    accessToken,
+    refreshToken,
+    accessTokenExpires,
+    newSession,
+  } = await getSessionToken(userAccount, userAuthProfile);
+
+  if (newSession)
+    await SessionsController.create({
+      userId: userAccount.userId,
+      accessToken,
+    });
+
+  return {
+    accessToken,
+    refreshToken,
+    accessTokenExpires,
+  };
+}
+
+export async function unauthorize(id: string, accessToken: string) {
+  const session = await SessionsController.get(accessToken);
+  const userAuthProfile = await UsersController.getById(session.userId);
+  const sessionUserId = session.userId.toString();
+
+  if (!userAuthProfile || id !== sessionUserId) return false;
+
+  if (await isValidAccessToken(session.accessToken)) {
+    await SessionsController.delete(session.accessToken);
   }
+
+  return true;
 }

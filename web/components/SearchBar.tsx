@@ -1,21 +1,28 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 
 import { ImSearch } from "react-icons/im";
-import { EventsContext } from "../contexts/EventsContext";
 import styles from "../styles/components/SearchBar.module.scss";
 
 interface SearchBarProps {
   className?: string;
+  onChange: (args: string[]) => void;
 }
 
 function SearchBar(props: SearchBarProps) {
-  const { updateSearchArgs } = useContext(EventsContext);
+  const [searchArgs, setSearchArgs] = useState<string[]>()
+
+  const onChange = (searchArgs: string) => {
+    const args = searchArgs.split(" ");
+    
+    setSearchArgs(args);
+    props.onChange(args);
+  }
 
   return (
     <div className={`${styles.searchBar} ${props.className}`}>
       <div className={styles.searchContainer}>
         <input
-          onChange={(event) => updateSearchArgs(event.target.value)}
+          onChange={(event) => onChange(event.target.value)}
           placeholder="pesquisar"
         />
       </div>

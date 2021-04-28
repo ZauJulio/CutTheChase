@@ -27,10 +27,11 @@ export function msToTime(millisec: number) {
   }
 }
 
-export function getFormatedData(date: Date, duration: number) {
+export function getFormatedData(date: string | number | Date, duration: number) {
+  date = new Date(date);
+
   const day = date.getDate().toString().padStart(2, "0");
-  const month =
-    months[parseInt((date.getMonth() + 1).toString().padStart(2, "0"))];
+  const month = months[parseInt((date.getMonth() + 1).toString().padStart(2, "0"))];
   const year = date.getFullYear();
   const hours = date.getHours();
   const minutes = date.getMinutes();

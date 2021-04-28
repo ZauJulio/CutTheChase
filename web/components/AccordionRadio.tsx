@@ -5,6 +5,7 @@ import styles from "../styles/components/Accordion.module.scss";
 
 interface AccordionProps {
   className?: string;
+  buttonStyle?: string;
   title: string;
   values: Array<string>;
   callback: (value: string) => void;
@@ -24,8 +25,8 @@ export function AccordionRadio(props: AccordionProps) {
   }
 
   return (
-    <div className={styles.container}>
-      <button className={styles.expandOptions} type="button">
+    <div className={`${styles.container} ${props.className}`}>
+      <button className={`${styles.expandOptions} ${props.buttonStyle}`} type="button">
         {props.title}
         <IoIosArrowDown className={styles.expandIcon}/>
         <IoIosArrowUp className={styles.compressIcon}/>

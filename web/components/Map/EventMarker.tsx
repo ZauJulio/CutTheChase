@@ -2,46 +2,45 @@ import React, { useState } from "react";
 import { Marker } from "react-leaflet";
 
 import iconMarker from "../../utils/MapMarkerIcon";
-import { Event } from "../../services/interfaces";
+import { Event } from "../../interfaces";
 
 import EventContainer from "./EventContainer";
 
 interface EventMarkerProps {
   event: Event;
-  setUseScroll?: Function;
+  showModal?: boolean;
+  lock?: (use: boolean) => void;
+  onClick?: (event: Event) => void;
 }
 
-function EventMarker({ event, setUseScroll }: EventMarkerProps) {
+export function EventMarker(props: EventMarkerProps) {
   const [showModal, setShowModal] = useState(false);
 
-  function freeScroll() {
-    setUseScroll(true);
+  function freeInteraction() {
+    props.lock && props.lock(true);
     setShowModal(!showModal);
+  }
+
+  function lockIteration() {
+    if ((props.showModal ?? true) && props.lock) {
+      setShowModal(!showModal);
+      props.lock(false);
+    } else if (props.onClick) {
+      props.onClick(props.event);
+    }
   }
 
   return (
     <>
       <Marker
-        key={event.name}
+        key={props.event.name}
         icon={iconMarker}
-        position={[event.adress.lat, event.adress.lng]}
-        eventHandlers={{
-          click: (e) => {
-            setShowModal(!showModal);
-            {
-              setUseScroll !== undefined && setUseScroll(false);
-            }
-          },
-        }}
+        position={[props.event.address.lat, props.event.address.lng]}
+        eventHandlers={{ click: (e) => lockIteration() }}
       ></Marker>
       {showModal && (
-        <EventContainer
-          event={event}
-          callback={setUseScroll !== undefined ? freeScroll : null}
-        />
+        <EventContainer event={props.event} callback={freeInteraction} />
       )}
     </>
   );
 }
-
-export default EventMarker;

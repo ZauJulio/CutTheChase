@@ -1,43 +1,71 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 
+import { useGeoLocation } from "react-sais";
+
+import { AccordionCheckbox } from "../components/AccordionCheckbox";
 import SearchBar from "../components/SearchBar";
-import CategoryFilter from "../components/CategoryFilter";
 import Aside from "../components/Aside";
 
-import { SelectableCategory } from "../services/interfaces";
+import { SelectableCategory, Event, Position } from "../interfaces";
 import { EventsProvider, Location } from "../contexts/EventsContext";
+import { api, getCategories } from "../services/api";
+
 import styles from "../styles/pages/Home.module.scss";
-import { useGeoLocation } from "react-sais";
-import { getEvents, getSelectableCategories } from "../services/api";
-import { Event } from "../services/interfaces";
+import { useSession } from "next-auth/client";
+import { download } from "../services/storage";
 
 interface HomeProps {
   location: Location;
   selectedCategories: SelectableCategory[];
 }
 
+const Map = dynamic(() => import("../components/Map"), { ssr: false });
+
 export default function Index(props: HomeProps) {
-  const Map = dynamic(() => import("../components/Map"), { ssr: false });
-  const location = useGeoLocation({ timeout: 60000 });
+  const [session, _] = useSession();
 
-  function getSelectedCategories() {
-    return getSelectableCategories()
-      .map((category) => {
-        if (category.selected) {
-          return category.name;
+  const watchLocation = useGeoLocation({ timeout: 60000 });
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [radius, setRadius] = useState<number>(9.6);
+
+  const [categories, setCategories] = useState<string[]>();
+  const [searchArgs, setSearchArgs] = useState<string[]>();
+
+  useEffect(() => {
+    if (
+      location.lat !== watchLocation.lat ||
+      location.lng !== watchLocation.lng
+    ) {
+      setLocation(watchLocation);
+    }
+  }, [watchLocation]);
+
+  const { data } = useSWR(
+    [categories, searchArgs, location, radius],
+    async (u) => {
+      const res = await api.get("/api/events/get", {
+        params: {
+          searchArgs,
+          categories,
+          radiusInM: radius * 1000,
+          location,
+        },
+      });
+
+      const events: Event[] = res.data;
+
+      if (events.length > 0) {
+        for (var i in events) {
+          events[i].images = await download(events[i].images);
         }
-      })
-      .filter((e) => e != null);
-  }
+      }
 
-  const [events, setEvents] = useState<Event[]>(
-    getEvents([""], getSelectedCategories(), {
-      lat: location.lat,
-      lng: location.lng,
-    })
+      return events;
+    }
   );
 
   return (
@@ -53,14 +81,21 @@ export default function Index(props: HomeProps) {
       <Aside />
       <EventsProvider location={location}>
         <div className={styles.topBarsContainer}>
-          <SearchBar />
-          <CategoryFilter />
+          <SearchBar onChange={(args: string[]) => setSearchArgs(args)} />
+          <AccordionCheckbox
+            buttonStyle={styles.expandOptions}
+            title="Categoria"
+            values={getCategories()}
+            callback={(arr) => setCategories(arr)}
+          />
         </div>
         <Map
           className={styles.mapContainer}
-          lat={location.lat}
-          lng={location.lng}
-          events={events}
+          initialPosition={location}
+          initialZoomInKm={radius}
+          events={data}
+          onDrag={(position: Position) => setLocation(position)}
+          onZoom={(radiusInKm: number) => setRadius(radiusInKm)}
         />
       </EventsProvider>
     </div>

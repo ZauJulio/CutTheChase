@@ -5,7 +5,7 @@ import { FiMapPin } from "react-icons/fi";
 import { EventsContext } from "../../contexts/EventsContext";
 // import { UserContext } from "../../contexts/UserContext";
 import { getFormatedData as formatDate } from "../../utils/DateTools";
-import { Event } from "../../services/interfaces";
+import { Event } from "../../interfaces";
 
 import { Evaluation } from "../Appraiser";
 import ImagesSlider from "../ImagesSlider";
@@ -74,7 +74,7 @@ export function EventContainer({ event, callback }: EventContainerProps) {
                   <p className={styles.date}>
                     {formatDate(event.datetime, event.duration)}
                   </p>
-                  <p className={styles.locality}>{event.adress.locality}</p>
+                  <p className={styles.locality}>{event.address.locality}</p>
                   <p className={styles.description}>{event.description}</p>
                   <a
                     className={styles.site}
@@ -90,7 +90,7 @@ export function EventContainer({ event, callback }: EventContainerProps) {
                     <a
                       target="_blank"
                       rel="noreferrer"
-                      href={`https://www.google.com/maps/dir/${location.lat},${location.lng}/${event.adress.lat},${event.adress.lng}/`}
+                      href={`https://www.google.com/maps/dir/${location.lat},${location.lng}/${event.address.lat},${event.address.lng}/`}
                     >
                       <FiMapPin />
                     </a>
@@ -106,7 +106,7 @@ export function EventContainer({ event, callback }: EventContainerProps) {
                   <h2>Avaliações</h2>
                   <div className={styles.assessmentsTitleSeperator} />
                   <div className={styles.assessments}>
-                    {event.assessments.map((rate, index) => {
+                    {event.assessments && event.assessments.map((rate, index) => {
                       return (
                         <div
                           key={index}

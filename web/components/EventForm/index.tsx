@@ -4,12 +4,16 @@ import { FiPlus } from "react-icons/fi";
 import ImageView from "./ImageView";
 import { AccordionCheckbox } from "../AccordionCheckbox";
 import { AccordionRadio } from "../AccordionRadio";
-import api, { getSelectableCategories } from "../../services/api";
+
+import api, { getCategories } from "../../services/api";
+import { useSession } from "next-auth/client";
+import { upload } from "../../services/storage";
 
 import styles from "../../styles/components/EventForm.module.scss";
 
 interface EventFormProps {
   className?: string;
+  data?: Event;
   geoLocation?: {
     lat: number;
     lng: number;
@@ -17,17 +21,18 @@ interface EventFormProps {
 }
 
 export default function EventForm(props: EventFormProps) {
+  const [session, _] = useSession();
   const role: string = "promoter";
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [locality, setLocality] = useState("");
-  const [datetime, setDatetime] = useState("");
+  const [datetime, setDatetime] = useState<string>(Date());
   const [duration, setDuration] = useState(0);
   const [site, setSite] = useState("");
   const [repeat, setRepeat] = useState("");
   const [promotor, setPromotor] = useState("");
-  const [categories, setCategories] = useState(getSelectableCategories());
+  const [categories, setCategories] = useState<string[]>();
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
@@ -35,38 +40,50 @@ export default function EventForm(props: EventFormProps) {
     event.preventDefault();
 
     const { lat, lng } = props.geoLocation;
-    const data = new FormData();
+    const formData = new FormData();
 
-    data.append("name", name);
-    data.append("description", description);
-    data.append("promotor", promotor);
-    data.append("locality", locality);
-    data.append("datetime", datetime);
-    data.append("duration", String(duration));
-    data.append("site", site);
-    data.append("repeat", repeat);
-    data.append("categories", JSON.stringify(categories));
+    if (session) {
+      let token = String(session.accessToken);
 
-    data.append(
-      "adress",
-      JSON.stringify({
-        lat,
-        lng,
-        locality,
-      })
-    );
+      console.log(datetime);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("promotor", promotor);
+      formData.append("locality", locality);
+      formData.append("datetime", String(new Date(datetime).getTime()));
+      formData.append("duration", String(duration));
+      formData.append("site", site);
+      formData.append("repeat", repeat);
+      formData.append("categories", JSON.stringify(categories));
 
-    // images.forEach(async (image) => {
-    //   data.append("images", image);
-    // });
+      formData.append(
+        "address",
+        JSON.stringify({
+          lat,
+          lng,
+          locality,
+        })
+      );
 
-    await api.local.post("api/events/create", data).then((response) => {
-      console.log(response);
-    });
+      const fileNames = await upload(images);
 
-    alert("Cadastro realizado com sucesso!");
+      fileNames.forEach((image) => {
+        formData.append("images", image);
+      });
 
-    // history.push('/app');
+      const response = await api.events.create(formData, token);
+      // Substituir por modal redirecionando para o mapa de eventos
+      if (response === 200) {
+        alert("Evento criado com sucesso ❤");
+      } else if (response === 415) {
+        alert("Hmm... Parece que um problema com os dados! Tente revisa-los");
+      } else if (response === 500) {
+        alert("Tivemos um problema... Tente novamente mais tarde ;-;");
+      }
+    } else {
+      // Substituir por modal abrindo nova aba para login
+      alert("Usuário não autorizado... Faça login novamente ; )");
+    }
   }
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
@@ -182,7 +199,7 @@ export default function EventForm(props: EventFormProps) {
           </div>
         </div>
 
-        <div className={styles.timeContainer}>
+        <div className={styles.lastContainer}>
           <div className={styles.input_block}>
             <label htmlFor="datetime">Data e Hora</label>
             <input
@@ -205,6 +222,7 @@ export default function EventForm(props: EventFormProps) {
           </div>
 
           <AccordionRadio
+            className={styles.accordions}
             title={
               repeat === ""
                 ? "Se repete..."
@@ -217,8 +235,9 @@ export default function EventForm(props: EventFormProps) {
           />
 
           <AccordionCheckbox
+            className={styles.accordions}
             title="Categoria"
-            values={categories}
+            values={getCategories()}
             callback={(arr) => setCategories(arr)}
           />
         </div>
